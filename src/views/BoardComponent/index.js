@@ -1,0 +1,58 @@
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import { BOARD_SIZE } from '../../core/setup/board';
+import PieceComponent from '../PieceComponent';
+import { Gameboard, Square } from './styles';
+import {
+  boardPropType,
+  pieceDetailsPropTypes,
+  coordinatesPropTypes
+} from '../../core/interfaces';
+
+const BoardComponent = ({
+  currentBoard,
+  onSelectPiece,
+  selectedPiece,
+  allowedMoves
+}) => {
+  return (
+    <Gameboard size={BOARD_SIZE}>
+      {Object.entries(currentBoard)
+        .reverse()
+        .map(([y, row]) =>
+          Object.keys(row).map(x => {
+            const piece = currentBoard[y][x];
+            return (
+              <Square
+                id={`${y}-${x}`}
+                className="square"
+                key={`${y}-${x}`}
+                allowedMoves={allowedMoves}
+              >
+                {currentBoard[y][x] && (
+                  <PieceComponent
+                    piece={piece}
+                    onSelectPiece={onSelectPiece}
+                    selectedPiece={selectedPiece}
+                  />
+                )}
+              </Square>
+            );
+          })
+        )}
+    </Gameboard>
+  );
+};
+
+BoardComponent.propTypes = {
+  currentBoard: boardPropType.isRequired,
+  onSelectPiece: PropTypes.func.isRequired,
+  selectedPiece: pieceDetailsPropTypes,
+  allowedMoves: PropTypes.arrayOf(coordinatesPropTypes).isRequired
+};
+
+BoardComponent.defaultProps = {
+  selectedPiece: undefined
+};
+
+export default BoardComponent;

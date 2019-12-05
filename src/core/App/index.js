@@ -1,42 +1,76 @@
 import React, { Component } from 'react';
-import Board from '../../views/Board';
-import { KING } from '../setup/pieces';
+import BoardComponent from '../../views/BoardComponent';
+import { BOARD_SIZE } from '../setup/board';
+import { getSquareDetails, getSquareId } from '../../utils';
+import { TOKIN, FUHYOU, OUSHOU } from '../../database';
 
 class App extends Component {
   state = {
-    board: {
-      1: { 1: undefined, 2: undefined, 3: undefined },
-      2: { 1: undefined, 2: undefined, 3: undefined },
-      3: { 1: undefined, 2: undefined, 3: undefined }
-    }
+    currentBoard: undefined,
+    selectedPiece: undefined,
+    allowedMoves: []
   };
 
-  getSquareDetails = square => {
-    const [row, column] = square.split(/-/);
-    return { row, column };
+  generateBoard = () => {
+    const currentBoard = {};
+    const xAxis = {};
+
+    for (let n = 1; n <= BOARD_SIZE; n += 1) {
+      xAxis[n] = undefined;
+    }
+    for (let n = 1; n <= BOARD_SIZE; n += 1) {
+      currentBoard[n] = xAxis;
+    }
+    this.setState({ currentBoard });
+  };
+
+  onSelectPiece = (piece, moves) => {
+    const allowedMoves = moves.map(move => getSquareId(move));
+    this.setState({ selectedPiece: piece, allowedMoves });
   };
 
   placePiece = (piece, square) => {
-    const { row, column } = this.getSquareDetails(square);
-    console.log('$$$ row, column', row, column);
+    const { row, column } = getSquareDetails(square);
+    console.log(`Piece moved: ${piece.name} => row: ${row}, column: ${column}`);
 
     this.setState(prevState => ({
-      board: {
-        ...prevState.board,
+      currentBoard: {
+        ...prevState.currentBoard,
         [row]: {
-          ...prevState.board[row],
+          ...prevState.currentBoard[row],
           [column]: piece
         }
       }
     }));
   };
 
+  setupGame = () => {
+    this.placePiece(OUSHOU, '1-1');
+    this.placePiece(FUHYOU, '5-4');
+    this.placePiece(TOKIN, '1-3');
+  };
+
   componentDidMount() {
-    this.placePiece(KING, '1-2');
+    this.generateBoard();
+    this.setupGame();
   }
 
   render() {
-    return <Board state={this.state.board} />;
+    const { currentBoard, selectedPiece, allowedMoves } = this.state;
+    return (
+      <>
+        {currentBoard ? (
+          <BoardComponent
+            currentBoard={currentBoard}
+            onSelectPiece={this.onSelectPiece}
+            selectedPiece={selectedPiece}
+            allowedMoves={allowedMoves}
+          />
+        ) : (
+          <h2>Loading</h2>
+        )}
+      </>
+    );
   }
 }
 
