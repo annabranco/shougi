@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import PieceHandler from '../../containers/PieceHandler';
 import { BOARD_SIZE } from '../../core/setup/board';
-import PieceComponent from '../PieceComponent';
 import { Gameboard, Square } from './styles';
 import {
   boardPropType,
@@ -14,35 +14,33 @@ const BoardComponent = ({
   onSelectPiece,
   selectedPiece,
   allowedMoves
-}) => {
-  return (
-    <Gameboard size={BOARD_SIZE}>
-      {Object.entries(currentBoard)
-        .reverse()
-        .map(([y, row]) =>
-          Object.keys(row).map(x => {
-            const piece = currentBoard[y][x];
-            return (
-              <Square
-                id={`${y}-${x}`}
-                className="square"
-                key={`${y}-${x}`}
-                allowedMoves={allowedMoves}
-              >
-                {currentBoard[y][x] && (
-                  <PieceComponent
-                    piece={piece}
-                    onSelectPiece={onSelectPiece}
-                    selectedPiece={selectedPiece}
-                  />
-                )}
-              </Square>
-            );
-          })
-        )}
-    </Gameboard>
-  );
-};
+}) => (
+  <Gameboard size={BOARD_SIZE}>
+    {Object.entries(currentBoard)
+      .reverse()
+      .map(([y, row]) =>
+        Object.keys(row).map(x => {
+          const piece = currentBoard[y][x];
+          return (
+            <Square
+              id={`${y}-${x}`}
+              className="square"
+              key={`${y}-${x}`}
+              allowedMoves={allowedMoves}
+            >
+              {currentBoard[y][x] && (
+                <PieceHandler
+                  piece={piece}
+                  onSelectPiece={onSelectPiece}
+                  selectedPiece={selectedPiece}
+                />
+              )}
+            </Square>
+          );
+        })
+      )}
+  </Gameboard>
+);
 
 BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,

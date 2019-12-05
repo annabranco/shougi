@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import BoardComponent from '../../views/BoardComponent';
 import { BOARD_SIZE } from '../setup/board';
 import { getSquareDetails, getSquareId } from '../../utils';
-import { TOKIN, FUHYOU, OUSHOU } from '../../database';
+import {
+  OUSHOU,
+  KYOUSHA,
+  NARIKYOU,
+  FUHYOU,
+  KEIMA,
+  HISHA,
+  KAKUGYOU
+} from '../../database';
 
 class App extends Component {
   state = {
@@ -45,9 +53,13 @@ class App extends Component {
   };
 
   setupGame = () => {
-    this.placePiece(OUSHOU, '1-1');
+    this.placePiece(OUSHOU, '3-6');
     this.placePiece(FUHYOU, '5-4');
-    this.placePiece(TOKIN, '1-3');
+    this.placePiece(KYOUSHA, '4-5');
+    this.placePiece(NARIKYOU, '4-2');
+    this.placePiece(KEIMA, '6-6');
+    this.placePiece(HISHA, '3-5');
+    this.placePiece(KAKUGYOU, '5-2');
   };
 
   componentDidMount() {
