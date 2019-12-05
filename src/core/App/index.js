@@ -16,7 +16,23 @@ class App extends Component {
   state = {
     currentBoard: undefined,
     selectedPiece: undefined,
+    pieceCoordinates: undefined,
     allowedMoves: []
+  };
+
+  componentDidMount() {
+    this.generateBoard();
+    this.setupGame();
+  }
+
+  setupGame = () => {
+    this.placePiece(OUSHOU, '3-6');
+    this.placePiece(FUHYOU, '5-4');
+    this.placePiece(KYOUSHA, '4-5');
+    this.placePiece(NARIKYOU, '4-2');
+    this.placePiece(KEIMA, '6-6');
+    this.placePiece(HISHA, '3-5');
+    this.placePiece(KAKUGYOU, '5-2');
   };
 
   generateBoard = () => {
@@ -32,14 +48,40 @@ class App extends Component {
     this.setState({ currentBoard });
   };
 
-  onSelectPiece = (piece, moves) => {
+  onSelectPiece = (piece, pieceCoordinates, moves) => {
     const allowedMoves = moves.map(move => getSquareId(move));
-    this.setState({ selectedPiece: piece, allowedMoves });
+    this.setState({ selectedPiece: piece, pieceCoordinates, allowedMoves });
   };
 
-  placePiece = (piece, square) => {
-    const { row, column } = getSquareDetails(square);
+  unselectPieces = () =>
+    this.setState({ selectedPiece: undefined, allowedMoves: [] });
+
+  movePiece = (piece, coordinates) => {
+    const { pieceCoordinates } = this.state;
+    const { row, column } = getSquareDetails(coordinates);
+
     console.log(`Piece moved: ${piece.name} => row: ${row}, column: ${column}`);
+
+    this.removePiece(pieceCoordinates);
+    this.placePiece(piece, coordinates);
+  };
+
+  removePiece = (coordinates = this.state.pieceCoordinates) => {
+    const { row, column } = getSquareDetails(coordinates);
+
+    this.setState(prevState => ({
+      currentBoard: {
+        ...prevState.currentBoard,
+        [row]: {
+          ...prevState.currentBoard[row],
+          [column]: undefined
+        }
+      }
+    }));
+  };
+
+  placePiece = (piece, coordinates) => {
+    const { row, column } = getSquareDetails(coordinates);
 
     this.setState(prevState => ({
       currentBoard: {
@@ -50,22 +92,19 @@ class App extends Component {
         }
       }
     }));
+    this.unselectPieces();
   };
 
-  setupGame = () => {
-    this.placePiece(OUSHOU, '3-6');
-    this.placePiece(FUHYOU, '5-4');
-    this.placePiece(KYOUSHA, '4-5');
-    this.placePiece(NARIKYOU, '4-2');
-    this.placePiece(KEIMA, '6-6');
-    this.placePiece(HISHA, '3-5');
-    this.placePiece(KAKUGYOU, '5-2');
-  };
+  onClickSquare = event => {
+    const coordinates = event.currentTarget.id;
 
-  componentDidMount() {
-    this.generateBoard();
-    this.setupGame();
-  }
+    const { selectedPiece } = this.state;
+    if (selectedPiece && this.state.allowedMoves.includes(coordinates)) {
+      this.movePiece(selectedPiece, coordinates);
+    } else {
+      this.unselectPieces();
+    }
+  };
 
   render() {
     const { currentBoard, selectedPiece, allowedMoves } = this.state;
@@ -77,6 +116,7 @@ class App extends Component {
             onSelectPiece={this.onSelectPiece}
             selectedPiece={selectedPiece}
             allowedMoves={allowedMoves}
+            onClickSquare={this.onClickSquare}
           />
         ) : (
           <h2>Loading</h2>

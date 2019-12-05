@@ -13,7 +13,8 @@ const BoardComponent = ({
   currentBoard,
   onSelectPiece,
   selectedPiece,
-  allowedMoves
+  allowedMoves,
+  onClickSquare
 }) => (
   <Gameboard size={BOARD_SIZE}>
     {Object.entries(currentBoard)
@@ -27,6 +28,7 @@ const BoardComponent = ({
               className="square"
               key={`${y}-${x}`}
               allowedMoves={allowedMoves}
+              onClick={onClickSquare}
             >
               {currentBoard[y][x] && (
                 <PieceHandler
@@ -46,7 +48,8 @@ BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,
   onSelectPiece: PropTypes.func.isRequired,
   selectedPiece: pieceDetailsPropTypes,
-  allowedMoves: PropTypes.arrayOf(coordinatesPropTypes).isRequired
+  allowedMoves: PropTypes.arrayOf(coordinatesPropTypes).isRequired,
+  onClickSquare: PropTypes.func.isRequired
 };
 
 BoardComponent.defaultProps = {

@@ -12,6 +12,7 @@ export const PieceFigure = styled.div`
   background: linear-gradient(rgb(243, 223, 196), rgb(148, 135, 115));
   outline: none;
   cursor: pointer;
+  transition: all 2s ease;
 
   &:hover {
     ${props =>
@@ -25,13 +26,6 @@ export const PieceFigure = styled.div`
               inset 0 0 30px 2px rgb(145, 105, 105);
           `}
   }
-  ${props =>
-    props.selectedPiece &&
-    console.log(
-      props.selectedPiece.name,
-      props.piece.name,
-      props.selectedPiece.name === props.piece.name
-    )}
 
   ${props =>
     props.selectedPiece &&

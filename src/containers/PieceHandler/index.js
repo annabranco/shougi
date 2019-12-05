@@ -16,12 +16,6 @@ class PieceHandler extends PureComponent {
     selectedPiece: undefined
   };
 
-  state = {
-    coordinates: undefined,
-    selected: false,
-    promoted: false
-  };
-
   calculateAllMovements = pieceCoordinates => {
     const { row, column } = getSquareDetails(pieceCoordinates);
     const movements = [];
@@ -78,23 +72,17 @@ class PieceHandler extends PureComponent {
   };
 
   onClickPiece = event => {
+    event.stopPropagation();
     const pieceCoordinates = event.currentTarget.parentElement.id;
-
-    this.setState({
-      coordinates: pieceCoordinates
-    });
     const movements = this.calculateAllMovements(pieceCoordinates);
-    this.props.onSelectPiece(this.props.piece, movements);
+    this.props.onSelectPiece(this.props.piece, pieceCoordinates, movements);
   };
-
-  // updateLocation = coordinates => this.setState({ coordinates });
 
   render() {
     return (
       <PieceComponent
         piece={this.props.piece}
         onClick={this.onClickPiece}
-        selected={this.state.selected}
         selectedPiece={this.props.selectedPiece}
       />
     );
