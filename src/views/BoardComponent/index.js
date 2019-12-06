@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import PieceHandler from '../../containers/PieceHandler';
-import { BOARD_SIZE } from '../../settings/setup/board';
+import { BOARD_SIZE } from '../../settings/board';
 import { Gameboard, Square } from './styles';
 import { boardPropType, pieceDetailsPropTypes } from '../../core/interfaces';
 

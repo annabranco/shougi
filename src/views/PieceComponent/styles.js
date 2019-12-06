@@ -33,7 +33,7 @@ export const PieceFigure = styled.div`
           ? '5px 23px 5px 23px'
           : '5px 22px 5px 22px'};
         filter: drop-shadow(0 -2px 1px black);
-        transition: all 0.5s ease;
+        transition: border-color 0.5s ease;
       }
     `}
 
@@ -86,4 +86,5 @@ export const PieceName = styled.div`
   font-size: ${window.innerWidth > 1000 ? '1.8rem' : '1.6rem'};
   line-height: 1;
   font-weight: 800;
+  user-select: none;
 `;

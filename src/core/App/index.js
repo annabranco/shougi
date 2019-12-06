@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import BoardComponent from '../../views/BoardComponent';
-import { BOARD_SIZE } from '../../settings/setup/board';
+import { BOARD_SIZE } from '../../settings/board';
 import { getSquareDetails, getSquareId } from '../../utils';
 import {
-  OUSHOU,
-  KYOUSHA,
-  NARIKYOU,
-  FUHYOU,
-  KEIMA,
-  HISHA,
-  KAKUGYOU
-} from '../../database';
+  W_OUSHOU,
+  W_HISHA,
+  W_KAKUGYOU,
+  W_KYOUSHA_L,
+  W_KYOUSHA_R,
+  W_KEIMA_L,
+  W_KEIMA_R,
+  W_GINSHOU_L,
+  W_GINSHOU_R,
+  W_KINSHOU_L,
+  W_KINSHOU_R,
+  W_FUHYOU_1,
+  W_FUHYOU_2,
+  W_FUHYOU_3,
+  W_FUHYOU_4,
+  W_FUHYOU_5,
+  W_FUHYOU_6,
+  W_FUHYOU_7,
+  W_FUHYOU_8,
+  W_FUHYOU_9
+} from '../setup/pieces';
 
 class App extends Component {
   state = {
@@ -27,13 +40,26 @@ class App extends Component {
   }
 
   setupGame = () => {
-    this.placePiece(OUSHOU, '3-6');
-    this.placePiece(FUHYOU, '5-4');
-    this.placePiece(KYOUSHA, '4-5');
-    this.placePiece(NARIKYOU, '4-2');
-    this.placePiece(KEIMA, '6-6');
-    this.placePiece(HISHA, '3-5');
-    this.placePiece(KAKUGYOU, '5-2');
+    this.placePiece(W_KYOUSHA_L, '1-1');
+    this.placePiece(W_KEIMA_L, '1-2');
+    this.placePiece(W_GINSHOU_L, '1-3');
+    this.placePiece(W_KINSHOU_L, '1-4');
+    this.placePiece(W_OUSHOU, '1-5');
+    this.placePiece(W_KINSHOU_R, '1-6');
+    this.placePiece(W_GINSHOU_R, '1-7');
+    this.placePiece(W_KEIMA_R, '1-8');
+    this.placePiece(W_KYOUSHA_R, '1-9');
+    this.placePiece(W_KAKUGYOU, '2-2');
+    this.placePiece(W_HISHA, '2-8');
+    this.placePiece(W_FUHYOU_1, '3-1');
+    this.placePiece(W_FUHYOU_2, '3-2');
+    this.placePiece(W_FUHYOU_3, '3-3');
+    this.placePiece(W_FUHYOU_4, '3-4');
+    this.placePiece(W_FUHYOU_5, '3-5');
+    this.placePiece(W_FUHYOU_6, '3-6');
+    this.placePiece(W_FUHYOU_7, '3-7');
+    this.placePiece(W_FUHYOU_8, '3-8');
+    this.placePiece(W_FUHYOU_9, '3-9');
   };
 
   generateBoard = () => {

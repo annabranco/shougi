@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { MAX_GRID_SIZE, MIN_GRID_SIZE } from '../../settings/setup/board';
+import { MAX_GRID_SIZE, MIN_GRID_SIZE } from '../../settings/board';
 
 export const Gameboard = styled.div`
   width: fit-content;

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { getSquareDetails } from '../../utils';
 import { pieceDetailsPropTypes } from '../../core/interfaces';
 import PieceComponent from '../../views/PieceComponent';
-import { BOARD_SIZE } from '../../settings/setup/board';
+import { BOARD_SIZE } from '../../settings/board';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
