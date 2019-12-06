@@ -13,6 +13,7 @@ export const Gameboard = styled.div`
     }px`}
   );
   box-shadow: 4px 4px 5px 2px black;
+  background: linear-gradient(120deg, white, black, black, white);
 `;
 
 export const Square = styled.div`
@@ -22,7 +23,7 @@ export const Square = styled.div`
   max-width: ${`${MAX_GRID_SIZE}px`};
   min-height: ${`${MIN_GRID_SIZE}px`};
   min-width: ${`${MIN_GRID_SIZE}px`};
-  background: gray;
+  background: rgba(128, 128, 128, 0.8);
   border: 1px solid black;
   display: flex;
   align-items: center;

@@ -85,11 +85,16 @@ class PieceHandler extends PureComponent {
 
     event.stopPropagation();
     const pieceCoordinates = event.currentTarget.parentElement.id;
-
+    console.log(
+      '$$$ selectedPiece.team !== piece.tea',
+      selectedPiece && selectedPiece.team,
+      piece.team
+    );
     if (
       selectedPiece &&
       selectedPiece.id !== piece.id &&
-      allowedMoves.includes(pieceCoordinates)
+      allowedMoves.includes(pieceCoordinates) &&
+      selectedPiece.team !== piece.team
     ) {
       capturePiece(pieceCoordinates);
     } else {

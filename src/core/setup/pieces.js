@@ -11,7 +11,7 @@ import {
 
 // WHITE TEAM
 export const W_OUSHOU = { ...OUSHOU, id: 'white_ōshō', team: 'white' };
-export const W_HISHA = { ...HISHA, id: 'white_hisha' };
+export const W_HISHA = { ...HISHA, id: 'white_hisha', team: 'white' };
 export const W_KAKUGYOU = { ...KAKUGYOU, id: 'white_kakugyō', team: 'white' };
 export const W_KYOUSHA_L = { ...KYOUSHA, id: 'white_kyōsha_L', team: 'white' };
 export const W_KYOUSHA_R = { ...KYOUSHA, id: 'white_kyōsha_R', team: 'white' };
