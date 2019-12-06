@@ -34,6 +34,7 @@ const BoardComponent = ({
                   selectedPiece={selectedPiece}
                   capturePiece={capturePiece}
                   allowedMoves={allowedMoves}
+                  currentBoard={currentBoard}
                 />
               )}
             </Square>

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import { getSquareDetails } from '../../utils';
-import { pieceDetailsPropTypes } from '../../core/interfaces';
+import { pieceDetailsPropTypes, boardPropType } from '../../core/interfaces';
 import PieceComponent from '../../views/PieceComponent';
 import { BOARD_SIZE } from '../../settings/board';
 
@@ -11,7 +11,8 @@ class PieceHandler extends PureComponent {
     onSelectPiece: PropTypes.func.isRequired,
     selectedPiece: pieceDetailsPropTypes,
     capturePiece: PropTypes.func.isRequired,
-    allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired
+    allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
+    currentBoard: boardPropType.isRequired
   };
 
   static defaultProps = {
@@ -34,8 +35,15 @@ class PieceHandler extends PureComponent {
         for (let n = 1; n <= BOARD_SIZE; n += 1) {
           const adjX = baseMovement.x > 0 ? n : -n;
           const adjY = baseMovement.y > 0 ? n : -n;
+
           const move = { x: adjX + column, y: adjY + row };
-          movements.push(move);
+          if (this.isMovementValid(move)) {
+            if (this.canSquareBeAttacked(move)) {
+              movements.push(move);
+            } else {
+              break;
+            }
+          }
         }
       } else if (
         baseMovement.x === BOARD_SIZE ||
@@ -64,14 +72,49 @@ class PieceHandler extends PureComponent {
           }
 
           const move = { x: adjX + column, y: adjY + row };
-          movements.push(move);
+          if (this.isMovementValid(move)) {
+            if (this.canSquareBeAttacked(move)) {
+              movements.push(move);
+            } else {
+              break;
+            }
+          }
         }
       } else {
         const move = { x: baseMovement.x + column, y: baseMovement.y + row };
-        movements.push(move);
+        if (this.isMovementValid(move)) {
+          if (this.canSquareBeAttacked(move)) {
+            movements.push(move);
+          }
+        }
       }
     });
     return movements;
+  };
+
+  isMovementValid = move => {
+    if (
+      move.x > 0 &&
+      move.x <= BOARD_SIZE &&
+      move.y > 0 &&
+      move.y <= BOARD_SIZE
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  canSquareBeAttacked = square => {
+    if (this.props.currentBoard[square.y][square.x]) {
+      if (
+        this.props.currentBoard[square.y][square.x].team !==
+        this.props.piece.team
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return true;
   };
 
   onClickPiece = event => {
