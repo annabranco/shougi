@@ -20,7 +20,7 @@ import {
  * WHITE TEAM
  */
 // - Higher Rank
-export const W_OUSHOU = { ...OUSHOU, id: 'white_ōshō', team: 'white' };
+export const W_OUSHOU = { ...OUSHOU, id: 'ōshō', team: 'white' };
 export const W_KINSHOU_L = { ...KINSHOU, id: 'white_kinshō_L', team: 'white' };
 export const W_KINSHOU_R = { ...KINSHOU, id: 'white_kinshō_R', team: 'white' };
 // - Promotions
@@ -157,7 +157,7 @@ export const W_FUHYOU_9 = {
  * BLACK TEAM
  */
 // - Higher Rank
-export const B_OUSHOU = { ...OUSHOU, id: 'black_ōshō', team: 'black' };
+export const B_GYOKUSHOU = { ...GYOKUSHOU, id: 'gyokushō', team: 'black' };
 export const B_KINSHOU_L = { ...KINSHOU, id: 'black_kinshō_L', team: 'black' };
 export const B_KINSHOU_R = { ...KINSHOU, id: 'black_kinshō_R', team: 'black' };
 // - Promotions

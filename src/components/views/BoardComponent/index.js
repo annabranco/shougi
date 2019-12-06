@@ -1,9 +1,12 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import PieceHandler from '../../containers/PieceHandler';
-import { BOARD_SIZE } from '../../settings/board';
+import { BOARD_SIZE } from '../../../system/setup/board';
+import {
+  boardPropType,
+  pieceDetailsPropTypes
+} from '../../../system/interfaces';
 import { Gameboard, Square } from './styles';
-import { boardPropType, pieceDetailsPropTypes } from '../../core/interfaces';
 
 const BoardComponent = ({
   currentBoard,

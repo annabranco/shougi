@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BoardComponent from '../../views/BoardComponent';
-import { BOARD_SIZE } from '../../settings/board';
-import { getSquareDetails, getSquareId } from '../../utils';
+import { BOARD_SIZE } from '../../../system/setup';
+import { getSquareDetails, getSquareId } from '../../../system/utils';
 import {
   W_OUSHOU,
   W_HISHA,
@@ -23,9 +23,9 @@ import {
   W_FUHYOU_7,
   W_FUHYOU_8,
   W_FUHYOU_9
-} from '../setup/pieces';
+} from '../../../system/setup/pieces';
 
-class App extends Component {
+class BoardHandler extends Component {
   state = {
     currentBoard: undefined,
     selectedPiece: undefined,
@@ -179,4 +179,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default BoardHandler;

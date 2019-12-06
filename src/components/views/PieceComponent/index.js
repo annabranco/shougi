@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { pieceDetailsPropTypes } from '../../../system/interfaces';
 import { PieceFigure, PieceName } from './styles';
-import { pieceDetailsPropTypes } from '../../core/interfaces';
 
 const PieceComponent = ({ piece, onClick, selectedPiece }) => (
   <PieceFigure

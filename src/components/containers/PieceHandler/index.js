@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { getSquareDetails } from '../../utils';
-import { pieceDetailsPropTypes, boardPropType } from '../../core/interfaces';
 import PieceComponent from '../../views/PieceComponent';
-import { BOARD_SIZE } from '../../settings/board';
+import { BOARD_SIZE } from '../../../system/setup';
+import { getSquareDetails } from '../../../system/utils';
+import {
+  pieceDetailsPropTypes,
+  boardPropType
+} from '../../../system/interfaces';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
