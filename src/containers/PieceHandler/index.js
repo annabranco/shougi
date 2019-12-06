@@ -125,14 +125,10 @@ class PieceHandler extends PureComponent {
       onSelectPiece,
       piece
     } = this.props;
+    const pieceCoordinates = event.currentTarget.parentElement.id;
 
     event.stopPropagation();
-    const pieceCoordinates = event.currentTarget.parentElement.id;
-    console.log(
-      '$$$ selectedPiece.team !== piece.tea',
-      selectedPiece && selectedPiece.team,
-      piece.team
-    );
+
     if (
       selectedPiece &&
       selectedPiece.id !== piece.id &&

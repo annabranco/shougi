@@ -91,6 +91,7 @@ class App extends Component {
 
     this.removePiece(pieceCoordinates);
     this.placePiece(piece, coordinates);
+    this.handlePromotions(piece, coordinates);
   };
 
   removePiece = (coordinates = this.state.pieceCoordinates) => {
@@ -141,6 +142,19 @@ class App extends Component {
       this.movePiece(coordinates, selectedPiece);
     } else {
       this.unselectPieces();
+    }
+  };
+
+  handlePromotions = (piece, coordinates) => {
+    const { row } = getSquareDetails(coordinates);
+    if (piece.team === 'white') {
+      if (row >= BOARD_SIZE - 2 && piece.promotion) {
+        this.removePiece(coordinates);
+        this.placePiece(piece.promotion, coordinates);
+      }
+    } else if (row <= 3 && piece.promotion) {
+      this.removePiece(coordinates);
+      this.placePiece(piece.promotion, coordinates);
     }
   };
 
