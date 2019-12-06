@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-
-const MAX_GRID_SIZE = 80;
+import { MAX_GRID_SIZE, MIN_GRID_SIZE } from '../../settings/setup/board';
 
 export const Gameboard = styled.div`
   width: fit-content;
@@ -21,6 +20,8 @@ export const Square = styled.div`
   width: ${`${window.innerWidth / 12}px`};
   max-height: ${`${MAX_GRID_SIZE}px`};
   max-width: ${`${MAX_GRID_SIZE}px`};
+  min-height: ${`${MIN_GRID_SIZE}px`};
+  min-width: ${`${MIN_GRID_SIZE}px`};
   background: gray;
   border: 1px solid black;
   display: flex;

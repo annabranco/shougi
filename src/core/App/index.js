@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardComponent from '../../views/BoardComponent';
-import { BOARD_SIZE } from '../setup/board';
+import { BOARD_SIZE } from '../../settings/setup/board';
 import { getSquareDetails, getSquareId } from '../../utils';
 import {
   OUSHOU,
@@ -17,7 +17,8 @@ class App extends Component {
     currentBoard: undefined,
     selectedPiece: undefined,
     pieceCoordinates: undefined,
-    allowedMoves: []
+    allowedMoves: [],
+    capturedPieces: []
   };
 
   componentDidMount() {
@@ -56,7 +57,7 @@ class App extends Component {
   unselectPieces = () =>
     this.setState({ selectedPiece: undefined, allowedMoves: [] });
 
-  movePiece = (piece, coordinates) => {
+  movePiece = (coordinates, piece = this.state.selectedPiece) => {
     const { pieceCoordinates } = this.state;
     const { row, column } = getSquareDetails(coordinates);
 
@@ -95,12 +96,23 @@ class App extends Component {
     this.unselectPieces();
   };
 
+  capturePiece = coordinates => {
+    const { row, column } = getSquareDetails(coordinates);
+    const capturedPiece = this.state.currentBoard[row][column];
+    this.setState(prevState => ({
+      capturedPieces: [...prevState.capturedPieces, capturedPiece]
+    }));
+
+    this.removePiece(coordinates);
+    this.movePiece(coordinates);
+  };
+
   onClickSquare = event => {
     const coordinates = event.currentTarget.id;
 
     const { selectedPiece } = this.state;
     if (selectedPiece && this.state.allowedMoves.includes(coordinates)) {
-      this.movePiece(selectedPiece, coordinates);
+      this.movePiece(coordinates, selectedPiece);
     } else {
       this.unselectPieces();
     }
@@ -117,6 +129,7 @@ class App extends Component {
             selectedPiece={selectedPiece}
             allowedMoves={allowedMoves}
             onClickSquare={this.onClickSquare}
+            capturePiece={this.capturePiece}
           />
         ) : (
           <h2>Loading</h2>

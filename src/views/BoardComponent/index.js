@@ -1,20 +1,17 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import PieceHandler from '../../containers/PieceHandler';
-import { BOARD_SIZE } from '../../core/setup/board';
+import { BOARD_SIZE } from '../../settings/setup/board';
 import { Gameboard, Square } from './styles';
-import {
-  boardPropType,
-  pieceDetailsPropTypes,
-  coordinatesPropTypes
-} from '../../core/interfaces';
+import { boardPropType, pieceDetailsPropTypes } from '../../core/interfaces';
 
 const BoardComponent = ({
   currentBoard,
   onSelectPiece,
   selectedPiece,
   allowedMoves,
-  onClickSquare
+  onClickSquare,
+  capturePiece
 }) => (
   <Gameboard size={BOARD_SIZE}>
     {Object.entries(currentBoard)
@@ -35,6 +32,8 @@ const BoardComponent = ({
                   piece={piece}
                   onSelectPiece={onSelectPiece}
                   selectedPiece={selectedPiece}
+                  capturePiece={capturePiece}
+                  allowedMoves={allowedMoves}
                 />
               )}
             </Square>
@@ -48,8 +47,9 @@ BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,
   onSelectPiece: PropTypes.func.isRequired,
   selectedPiece: pieceDetailsPropTypes,
-  allowedMoves: PropTypes.arrayOf(coordinatesPropTypes).isRequired,
-  onClickSquare: PropTypes.func.isRequired
+  allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClickSquare: PropTypes.func.isRequired,
+  capturePiece: PropTypes.func.isRequired
 };
 
 BoardComponent.defaultProps = {

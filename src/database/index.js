@@ -25,6 +25,7 @@ export const OUSHOU = {
   name: '王將',
   shortName: '王',
   romaji: 'ōshō',
+  id: 'ōshō',
   english: 'King',
   moves: [
     FORWARD_LEFT,
@@ -42,6 +43,7 @@ export const GYOKUSHOU = {
   name: '玉將',
   shortName: '玉',
   romaji: 'gyokushō',
+  id: 'gyokushō',
   english: 'Defiant King',
   moves: [
     FORWARD_LEFT,
@@ -60,6 +62,7 @@ export const KINSHOU = {
   shortName: '金',
   romaji: 'kinshō',
   english: 'Gold General',
+  id: 'kinshō',
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
 
@@ -70,6 +73,7 @@ export const RYUUOO = {
   shortName: '龍',
   romaji: 'ryūō',
   english: 'Dragon King',
+  id: 'ryūō',
   promoted: true,
   moves: [
     FORWARD_LEFT,
@@ -88,6 +92,7 @@ export const RYUUMA = {
   shortName: '馬',
   romaji: 'ryūma',
   english: 'Dragon Horse',
+  id: 'ryūma',
   promoted: true,
   moves: [
     FORWARD,
@@ -106,6 +111,7 @@ export const NARIGIN = {
   shortName: '全',
   romaji: 'narigin',
   english: 'Prom Silver',
+  id: 'narigin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
@@ -115,6 +121,7 @@ export const NARIKEI = {
   shortName: '圭',
   romaji: 'narikei',
   english: 'Prom Knight',
+  id: 'narikei',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
@@ -124,6 +131,7 @@ export const NARIKYOU = {
   shortName: '杏',
   romaji: 'narikyō',
   english: 'Prom Lance',
+  id: 'narikyō',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
@@ -133,6 +141,7 @@ export const TOKIN = {
   shortName: 'と',
   romaji: 'tokin',
   english: 'Prom Pawn',
+  id: 'tokin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
@@ -144,6 +153,7 @@ export const GINSHOU = {
   shortName: '銀',
   romaji: 'ginshō',
   english: 'Silver General',
+  id: 'ginshō',
   promotion: NARIGIN,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, BACK_LEFT, BACK_RIGHT]
 };
@@ -153,6 +163,7 @@ export const KEIMA = {
   shortName: '桂',
   romaji: 'keima',
   english: 'Knight',
+  id: 'keima',
   promotion: NARIKEI,
   moves: [JUMP_FORWARD_LEFT, JUMP_FORWARD_RIGHT]
 };
@@ -162,6 +173,7 @@ export const HISHA = {
   shortName: '飛',
   romaji: 'hisha',
   english: 'Rook',
+  id: 'hisha',
   promotion: RYUUOO,
   moves: [ALL_FORWARD, ALL_BACK, ALL_LEFT, ALL_RIGHT]
 };
@@ -171,6 +183,7 @@ export const KAKUGYOU = {
   shortName: '角',
   romaji: 'kakugyō',
   english: 'Bishop',
+  id: 'kakugyō',
   promotion: RYUUMA,
   moves: [
     FORWARD_DIAGONALS_LEFT,
@@ -185,6 +198,7 @@ export const KYOUSHA = {
   shortName: '香',
   romaji: 'kyōsha',
   english: 'Lance',
+  id: 'kyōsha',
   promotion: NARIKYOU,
   moves: [ALL_FORWARD]
 };
@@ -194,6 +208,7 @@ export const FUHYOU = {
   shortName: '歩',
   romaji: 'fuhyō',
   english: 'Pawn',
+  id: 'fuhyō',
   promotion: TOKIN,
   moves: [FORWARD]
 };

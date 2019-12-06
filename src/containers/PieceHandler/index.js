@@ -3,13 +3,15 @@ import { PropTypes } from 'prop-types';
 import { getSquareDetails } from '../../utils';
 import { pieceDetailsPropTypes } from '../../core/interfaces';
 import PieceComponent from '../../views/PieceComponent';
-import { BOARD_SIZE } from '../../core/setup/board';
+import { BOARD_SIZE } from '../../settings/setup/board';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
     piece: pieceDetailsPropTypes.isRequired,
     onSelectPiece: PropTypes.func.isRequired,
-    selectedPiece: pieceDetailsPropTypes
+    selectedPiece: pieceDetailsPropTypes,
+    capturePiece: PropTypes.func.isRequired,
+    allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
   static defaultProps = {
@@ -17,9 +19,10 @@ class PieceHandler extends PureComponent {
   };
 
   calculateAllMovements = pieceCoordinates => {
+    const { piece } = this.props;
     const { row, column } = getSquareDetails(pieceCoordinates);
     const movements = [];
-    this.props.piece.moves.forEach(baseMovement => {
+    piece.moves.forEach(baseMovement => {
       if (
         baseMovement.x !== 0 &&
         baseMovement.y !== 0 &&
@@ -72,10 +75,27 @@ class PieceHandler extends PureComponent {
   };
 
   onClickPiece = event => {
+    const {
+      selectedPiece,
+      allowedMoves,
+      capturePiece,
+      onSelectPiece,
+      piece
+    } = this.props;
+
     event.stopPropagation();
     const pieceCoordinates = event.currentTarget.parentElement.id;
-    const movements = this.calculateAllMovements(pieceCoordinates);
-    this.props.onSelectPiece(this.props.piece, pieceCoordinates, movements);
+
+    if (
+      selectedPiece &&
+      selectedPiece.id !== piece.id &&
+      allowedMoves.includes(pieceCoordinates)
+    ) {
+      capturePiece(pieceCoordinates);
+    } else {
+      const movements = this.calculateAllMovements(pieceCoordinates);
+      onSelectPiece(piece, pieceCoordinates, movements);
+    }
   };
 
   render() {

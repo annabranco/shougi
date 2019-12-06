@@ -9,7 +9,9 @@ export const pieceDetailsPropTypes = PropTypes.shape({
   name: PropTypes.string.isRequired,
   romaji: PropTypes.string.isRequired,
   english: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   moves: PropTypes.arrayOf(coordinatesPropTypes.isRequired).isRequired,
+  promoted: PropTypes.bool,
   promotion: PropTypes.shape({
     name: PropTypes.string.isRequired,
     romaji: PropTypes.string.isRequired,
