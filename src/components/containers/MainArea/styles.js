@@ -4,10 +4,6 @@ import { Background } from '../../../assets/images';
 export const GameArea = styled.main`
   margin-top: -10px;
   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   padding-top: ${window.innerWidth < 900 && '80px'};
   background-image: linear-gradient(
       -10deg,

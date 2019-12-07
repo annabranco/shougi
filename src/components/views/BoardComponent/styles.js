@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components';
-import { MAX_GRID_SIZE, MIN_GRID_SIZE } from '../../../system/setup/board';
-import { returnResponsiveValue } from '../../../system/utils';
+import {
+  MAX_GRID_SIZE,
+  MIN_GRID_SIZE,
+  BOARD_BORDERS
+} from '../../../system/setup/board';
+import { returnResponsiveValue, getGridsSize } from '../../../system/utils';
 import { Wood, Marble } from '../../../assets/images';
 
 export const BoardArea = styled.div`
   margin-top: 20px;
   border: 2px solid black;
-  padding: 30px;
+  padding: ${`${BOARD_BORDERS}px`};
   box-shadow: 4px 4px 5px 2px black;
   background-image: linear-gradient(
       134deg,
@@ -28,30 +32,15 @@ export const Gameboard = styled.div`
   box-shadow: 2px 2px 2px 3px black;
   grid-template-columns: repeat(
     ${props => props.size},
-    ${`${returnResponsiveValue(
-      MIN_GRID_SIZE,
-      MIN_GRID_SIZE + 12,
-      (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
-      MAX_GRID_SIZE
-    )}px`}
+    ${`${getGridsSize()}px`}
   );
   background-image: url(${Marble});
   background-size: cover;
 `;
 
 export const Square = styled.div`
-  height: ${`${returnResponsiveValue(
-    MIN_GRID_SIZE,
-    MIN_GRID_SIZE + 12,
-    (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
-    MAX_GRID_SIZE
-  )}px`};
-  width: ${`${returnResponsiveValue(
-    MIN_GRID_SIZE,
-    MIN_GRID_SIZE + 12,
-    (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
-    MAX_GRID_SIZE
-  )}px`};
+  height: ${`${getGridsSize()}px`};
+  width: ${`${getGridsSize()}px`};
   background: rgba(128, 128, 128, 0.8);
   border: 1px solid black;
   display: flex;

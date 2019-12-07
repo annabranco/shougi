@@ -102,6 +102,7 @@ export const PieceName = styled.div`
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
   font-size: ${returnResponsiveValue('1.4rem', '1.6rem', '1.8rem', '1.6rem')};
   line-height: ${returnResponsiveValue(0, 0, 0, 1)};
-  font-weight: 800;
+  font-weight: 400;
   user-select: none;
+  font-family: 'Noto Sans JP', sans-serif;
 `;

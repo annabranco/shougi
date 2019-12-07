@@ -143,7 +143,7 @@ class PieceHandler extends PureComponent {
       allowedMoves.includes(pieceCoordinates) &&
       selectedPiece.team !== piece.team
     ) {
-      capturePiece(pieceCoordinates);
+      capturePiece(pieceCoordinates, selectedPiece.team);
     } else {
       const movements = this.calculateAllMovements(pieceCoordinates);
       onSelectPiece(piece, pieceCoordinates, movements);

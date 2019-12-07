@@ -44,6 +44,9 @@ import {
   B_FUHYOU_8,
   B_FUHYOU_9
 } from '../../../system/setup/pieces';
+import { CapturedPiecesBox, PlayingArea } from './styles';
+import PieceComponent from '../../views/PieceComponent';
+import CapturedArea from '../../views/CapturedArea';
 
 class BoardHandler extends Component {
   state = {
@@ -51,7 +54,10 @@ class BoardHandler extends Component {
     selectedPiece: undefined,
     pieceCoordinates: undefined,
     allowedMoves: [],
-    capturedPieces: []
+    capturedPieces: {
+      black: [],
+      white: []
+    }
   };
 
   componentDidMount() {
@@ -164,12 +170,23 @@ class BoardHandler extends Component {
     this.unselectPieces();
   };
 
-  capturePiece = coordinates => {
+  capturePiece = (coordinates, capturer) => {
     const { row, column } = getSquareDetails(coordinates);
     const capturedPiece = this.state.currentBoard[row][column];
-    this.setState(prevState => ({
-      capturedPieces: [...prevState.capturedPieces, capturedPiece]
-    }));
+
+    this.setState(
+      prevState => ({
+        capturedPieces: {
+          ...prevState.capturedPieces,
+          [capturer]: [...prevState.capturedPieces[capturer], capturedPiece]
+        }
+      }),
+      () =>
+        console.log(
+          '$$$ capturedPieces[capturer]',
+          this.state.capturedPieces[capturer]
+        )
+    );
 
     this.removePiece(coordinates);
     setTimeout(() => this.movePiece(coordinates), 1);
@@ -199,19 +216,41 @@ class BoardHandler extends Component {
     }
   };
 
+  onClickCaptured = () => null;
+
   render() {
-    const { currentBoard, selectedPiece, allowedMoves } = this.state;
+    const {
+      currentBoard,
+      selectedPiece,
+      allowedMoves,
+      capturedPieces
+    } = this.state;
+
     return (
       <>
         {currentBoard ? (
-          <BoardComponent
-            currentBoard={currentBoard}
-            onSelectPiece={this.onSelectPiece}
-            selectedPiece={selectedPiece}
-            allowedMoves={allowedMoves}
-            onClickSquare={this.onClickSquare}
-            capturePiece={this.capturePiece}
-          />
+          <PlayingArea>
+            <CapturedArea
+              team="black"
+              capturedPieces={capturedPieces.black}
+              selectedPiece={selectedPiece}
+              onClick={this.onClickCaptured}
+            />
+            <BoardComponent
+              currentBoard={currentBoard}
+              onSelectPiece={this.onSelectPiece}
+              selectedPiece={selectedPiece}
+              allowedMoves={allowedMoves}
+              onClickSquare={this.onClickSquare}
+              capturePiece={this.capturePiece}
+            />
+            <CapturedArea
+              team="white"
+              capturedPieces={capturedPieces.white}
+              selectedPiece={selectedPiece}
+              onClick={this.onClickCaptured}
+            />
+          </PlayingArea>
         ) : (
           <h2>Loading</h2>
         )}
