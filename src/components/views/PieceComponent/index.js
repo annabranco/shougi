@@ -8,12 +8,12 @@ const PieceComponent = ({ piece, onClick, selectedPiece }) => (
     onClick={onClick}
     role="button"
     tabIndex={0}
-    placeholder={piece.english}
+    placeholder={window.innerWidth >= 900 ? piece.english : piece.shortEnglish}
     selectedPiece={selectedPiece}
     piece={piece}
   >
     <PieceName promoted={piece.promoted}>
-      {window.innerWidth > 700 ? piece.name : piece.shortName}
+      {window.innerWidth >= 900 ? piece.name : piece.shortName}
     </PieceName>
   </PieceFigure>
 );

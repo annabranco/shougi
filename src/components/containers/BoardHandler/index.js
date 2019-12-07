@@ -22,7 +22,27 @@ import {
   W_FUHYOU_6,
   W_FUHYOU_7,
   W_FUHYOU_8,
-  W_FUHYOU_9
+  W_FUHYOU_9,
+  B_KYOUSHA_L,
+  B_KEIMA_L,
+  B_GINSHOU_L,
+  B_KINSHOU_L,
+  B_GYOKUSHOU,
+  B_KINSHOU_R,
+  B_GINSHOU_R,
+  B_KEIMA_R,
+  B_KYOUSHA_R,
+  B_KAKUGYOU,
+  B_HISHA,
+  B_FUHYOU_1,
+  B_FUHYOU_2,
+  B_FUHYOU_3,
+  B_FUHYOU_4,
+  B_FUHYOU_5,
+  B_FUHYOU_6,
+  B_FUHYOU_7,
+  B_FUHYOU_8,
+  B_FUHYOU_9
 } from '../../../system/setup/pieces';
 
 class BoardHandler extends Component {
@@ -60,6 +80,27 @@ class BoardHandler extends Component {
     this.placePiece(W_FUHYOU_7, '3-7');
     this.placePiece(W_FUHYOU_8, '3-8');
     this.placePiece(W_FUHYOU_9, '3-9');
+
+    this.placePiece(B_KYOUSHA_L, '9-1');
+    this.placePiece(B_KEIMA_L, '9-2');
+    this.placePiece(B_GINSHOU_L, '9-3');
+    this.placePiece(B_KINSHOU_L, '9-4');
+    this.placePiece(B_GYOKUSHOU, '9-5');
+    this.placePiece(B_KINSHOU_R, '9-6');
+    this.placePiece(B_GINSHOU_R, '9-7');
+    this.placePiece(B_KEIMA_R, '9-8');
+    this.placePiece(B_KYOUSHA_R, '9-9');
+    this.placePiece(B_KAKUGYOU, '8-2');
+    this.placePiece(B_HISHA, '8-8');
+    this.placePiece(B_FUHYOU_1, '7-1');
+    this.placePiece(B_FUHYOU_2, '7-2');
+    this.placePiece(B_FUHYOU_3, '7-3');
+    this.placePiece(B_FUHYOU_4, '7-4');
+    this.placePiece(B_FUHYOU_5, '7-5');
+    this.placePiece(B_FUHYOU_6, '7-6');
+    this.placePiece(B_FUHYOU_7, '7-7');
+    this.placePiece(B_FUHYOU_8, '7-8');
+    this.placePiece(B_FUHYOU_9, '7-9');
   };
 
   generateBoard = () => {

@@ -1,11 +1,14 @@
 import React from 'react';
 import BoardHandler from '../../containers/BoardHandler';
 import ErrorBoundary from '../ErrorBoundary';
+import MainArea from '../../containers/MainArea';
 
 const App = () => {
   return (
     <ErrorBoundary>
-      <BoardHandler />
+      <MainArea>
+        <BoardHandler />
+      </MainArea>
     </ErrorBoundary>
   );
 };

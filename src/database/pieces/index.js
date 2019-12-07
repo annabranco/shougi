@@ -17,7 +17,7 @@ import {
   FORWARD_DIAGONALS_RIGHT,
   BACKWARD_DIAGONALS_LEFT,
   BACKWARD_DIAGONALS_RIGHT
-} from '../../system/constants/movements';
+} from '../../system/constants';
 
 // HIGHER RANKS
 
@@ -27,6 +27,7 @@ export const OUSHOU = {
   romaji: 'ōshō',
   id: 'ōshō',
   english: 'King',
+  shortEnglish: 'King',
   moves: [
     FORWARD_LEFT,
     FORWARD,
@@ -45,6 +46,7 @@ export const GYOKUSHOU = {
   romaji: 'gyokushō',
   id: 'gyokushō',
   english: 'Defiant King',
+  shortEnglish: 'King',
   moves: [
     FORWARD_LEFT,
     FORWARD,
@@ -62,6 +64,7 @@ export const KINSHOU = {
   shortName: '金',
   romaji: 'kinshō',
   english: 'Gold General',
+  shortEnglish: 'Gold',
   id: 'kinshō',
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
@@ -73,6 +76,7 @@ export const RYUUOO = {
   shortName: '龍',
   romaji: 'ryūō',
   english: 'Dragon King',
+  shortEnglish: 'Dragon',
   id: 'ryūō',
   promoted: true,
   moves: [
@@ -92,6 +96,7 @@ export const RYUUMA = {
   shortName: '馬',
   romaji: 'ryūma',
   english: 'Dragon Horse',
+  shortEnglish: 'Horse',
   id: 'ryūma',
   promoted: true,
   moves: [
@@ -110,7 +115,8 @@ export const NARIGIN = {
   name: '成銀',
   shortName: '全',
   romaji: 'narigin',
-  english: 'Prom Silver',
+  english: 'Prom. Silver',
+  shortEnglish: '+Silver',
   id: 'narigin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -120,7 +126,8 @@ export const NARIKEI = {
   name: '成桂',
   shortName: '圭',
   romaji: 'narikei',
-  english: 'Prom Knight',
+  english: 'Prom. Knight',
+  shortEnglish: '+Knight',
   id: 'narikei',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -130,7 +137,8 @@ export const NARIKYOU = {
   name: '成香',
   shortName: '杏',
   romaji: 'narikyō',
-  english: 'Prom Lance',
+  english: 'Prom. Lance',
+  shortEnglish: '+Lance',
   id: 'narikyō',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -140,7 +148,8 @@ export const TOKIN = {
   name: 'と金',
   shortName: 'と',
   romaji: 'tokin',
-  english: 'Prom Pawn',
+  english: 'Prom. Pawn',
+  shortEnglish: '+Pawn',
   id: 'tokin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -153,6 +162,7 @@ export const GINSHOU = {
   shortName: '銀',
   romaji: 'ginshō',
   english: 'Silver General',
+  shortEnglish: 'Silver',
   id: 'ginshō',
   promotion: NARIGIN,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, BACK_LEFT, BACK_RIGHT]
@@ -163,6 +173,7 @@ export const KEIMA = {
   shortName: '桂',
   romaji: 'keima',
   english: 'Knight',
+  shortEnglish: 'Knightt',
   id: 'keima',
   promotion: NARIKEI,
   moves: [JUMP_FORWARD_LEFT, JUMP_FORWARD_RIGHT]
@@ -173,6 +184,7 @@ export const HISHA = {
   shortName: '飛',
   romaji: 'hisha',
   english: 'Rook',
+  shortEnglish: 'Rook',
   id: 'hisha',
   promotion: RYUUOO,
   moves: [ALL_FORWARD, ALL_BACK, ALL_LEFT, ALL_RIGHT]
@@ -183,6 +195,7 @@ export const KAKUGYOU = {
   shortName: '角',
   romaji: 'kakugyō',
   english: 'Bishop',
+  shortEnglish: 'Bishop',
   id: 'kakugyō',
   promotion: RYUUMA,
   moves: [
@@ -198,6 +211,7 @@ export const KYOUSHA = {
   shortName: '香',
   romaji: 'kyōsha',
   english: 'Lance',
+  shortEnglish: 'Lance',
   id: 'kyōsha',
   promotion: NARIKYOU,
   moves: [ALL_FORWARD]
@@ -208,6 +222,7 @@ export const FUHYOU = {
   shortName: '歩',
   romaji: 'fuhyō',
   english: 'Pawn',
+  shortEnglish: 'Pawn',
   id: 'fuhyō',
   promotion: TOKIN,
   moves: [FORWARD]

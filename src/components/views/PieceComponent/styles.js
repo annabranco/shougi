@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { returnResponsiveValue } from '../../../system/utils';
 
 export const PieceFigure = styled.div`
   position: relative;
@@ -8,7 +9,9 @@ export const PieceFigure = styled.div`
   text-align: center;
   height: 70%;
   width: 50%;
-  box-shadow: 1px 1px 4px 1px black, inset 1px 0 2px 0 white;
+  box-shadow: 1px 1px 4px 1px black,
+    inset 1px ${props => (props.piece.team === 'white' ? '0' : '1px')} 2px 0
+      white;
   background: linear-gradient(rgb(243, 223, 196), rgb(148, 135, 115));
   outline: none;
   cursor: pointer;
@@ -18,24 +21,31 @@ export const PieceFigure = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${window.innerWidth > 700 &&
-    css`
-      &::before {
-        position: absolute;
-        top: -15px;
-        left: 0;
-        content: '';
-        width: ${window.innerWidth > 1000 ? '10%' : '0'};
-        height: 5px;
-        border-style: solid;
-        border-color: transparent transparent rgb(243, 223, 196);
-        border-width: ${window.innerWidth > 1000
-          ? '5px 23px 5px 23px'
-          : '5px 22px 5px 22px'};
-        filter: drop-shadow(0 -2px 1px black);
-        transition: border-color 0.5s ease;
-      }
-    `}
+  &::before {
+    position: absolute;
+    top: ${props => (props.piece.team === 'black' ? 'auto' : '-15px')};
+    bottom: ${props => (props.piece.team === 'white' ? 'auto' : '-15px')};
+    left: 0;
+    content: '';
+    width: 0;
+    height: 5px;
+    border-style: solid;
+    border-color: transparent transparent
+      ${props =>
+        props.piece.team === 'white'
+          ? 'rgb(243, 223, 196)'
+          : 'rgb(161, 147, 126)'};
+    border-width: ${returnResponsiveValue(
+      '5px 15.5px 5px 15.5px',
+      '5px 18.5px 5px 18.5px',
+      '5px 19px 5px 19px',
+      '5px 22px 5px 22px'
+    )};
+    filter: drop-shadow(0 -2px 1px black);
+    transition: border-color 0.5s ease;
+    transform: ${props =>
+      props.piece.team === 'white' ? 'none' : 'rotate(180deg)'};
+  }
 
   &:hover {
     ${props =>
@@ -63,6 +73,8 @@ export const PieceFigure = styled.div`
       box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px blue,
         inset 1px 1px 2px 0 white, inset 0 0 30px 2px rgb(145, 105, 105);
 
+      ${window.innerWidth >= 500 &&
+        css`
       &::before {
         position: absolute;
         content: '${props.placeholder}';
@@ -76,15 +88,16 @@ export const PieceFigure = styled.div`
         border-radius: 2px;
         text-align: center;
       }
+      `}
     `}
 `;
 
 export const PieceName = styled.div`
-  margin: 0;
+  margin: 3px 0 0;
   color: ${props => (props.promoted ? 'darkred' : 'black')};
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
-  font-size: ${window.innerWidth > 1000 ? '1.8rem' : '1.6rem'};
-  line-height: 1;
+  font-size: ${returnResponsiveValue('1.4rem', '1.6rem', '1.8rem', '1.6rem')};
+  line-height: ${returnResponsiveValue(0, 0, 0, 1)};
   font-weight: 800;
   user-select: none;
 `;

@@ -1,28 +1,36 @@
 import styled, { css } from 'styled-components';
 import { MAX_GRID_SIZE, MIN_GRID_SIZE } from '../../../system/setup/board';
+import { returnResponsiveValue } from '../../../system/utils';
 
 export const Gameboard = styled.div`
   width: fit-content;
   display: grid;
   grid-template-columns: repeat(
     ${props => props.size},
-    ${`${
-      window.innerWidth / 12 <= MAX_GRID_SIZE
-        ? window.innerWidth / 12
-        : MAX_GRID_SIZE
-    }px`}
+    ${`${returnResponsiveValue(
+      MIN_GRID_SIZE,
+      MIN_GRID_SIZE + 12,
+      (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
+      MAX_GRID_SIZE
+    )}px`}
   );
   box-shadow: 4px 4px 5px 2px black;
   background: linear-gradient(120deg, white, black, black, white);
 `;
 
 export const Square = styled.div`
-  height: ${`${window.innerWidth / 12}px`};
-  width: ${`${window.innerWidth / 12}px`};
-  max-height: ${`${MAX_GRID_SIZE}px`};
-  max-width: ${`${MAX_GRID_SIZE}px`};
-  min-height: ${`${MIN_GRID_SIZE}px`};
-  min-width: ${`${MIN_GRID_SIZE}px`};
+  height: ${`${returnResponsiveValue(
+    MIN_GRID_SIZE,
+    MIN_GRID_SIZE + 12,
+    (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
+    MAX_GRID_SIZE
+  )}px`};
+  width: ${`${returnResponsiveValue(
+    MIN_GRID_SIZE,
+    MIN_GRID_SIZE + 12,
+    (MAX_GRID_SIZE + MIN_GRID_SIZE) / 2,
+    MAX_GRID_SIZE
+  )}px`};
   background: rgba(128, 128, 128, 0.8);
   border: 1px solid black;
   display: flex;

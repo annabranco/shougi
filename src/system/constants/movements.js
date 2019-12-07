@@ -1,4 +1,4 @@
-import { BOARD_SIZE } from '../setup';
+import { BOARD_SIZE } from '../setup/board';
 
 export const FORWARD_LEFT = { x: -1, y: 1 };
 export const FORWARD = { x: 0, y: 1 };
