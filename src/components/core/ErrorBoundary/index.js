@@ -7,7 +7,8 @@ import {
   ErrorMessage,
   Link,
   ErrorButton,
-  GithubIcon
+  GithubIcon,
+  ShougiName
 } from './styles';
 
 class ErrorBoundary extends Component {
@@ -51,6 +52,7 @@ class ErrorBoundary extends Component {
               <GithubIcon className="fab fa-github-alt" />
             </Link>
           </ErrorMessageWrapper>
+          <ShougiName>将棋</ShougiName>
         </ErrorArea>
       );
     }

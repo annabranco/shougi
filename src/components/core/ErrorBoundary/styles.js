@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Background } from '../../../assets/images';
 
 export const ErrorArea = styled.div`
   padding: 80px;
-  width: 100vw;
-  height: 100vh;
+  width: ${`${window.innerWidth - 160}px`};
+  height: ${`${window.innerHeight - 160}px`};
   background-image: linear-gradient(
       -10deg,
       rgba(155, 151, 133, 0.9),
@@ -16,10 +16,14 @@ export const ErrorArea = styled.div`
 `;
 
 export const ErrorTitle = styled.h2`
-  margin-top: 100px;
+  margin-top: 300px;
   font-family: 'Corben', cursive;
   font-size: 2rem;
   text-align: left;
+  ${window.innerWidth <= 900 &&
+    css`
+      margin-top: 250px;
+    `}
 `;
 
 export const ErrorMessageWrapper = styled.div`
@@ -83,4 +87,28 @@ export const GithubIcon = styled.i`
   vertical-align: middle;
   text-shadow: 0 0 1px black;
   font-size: 2rem;
+`;
+
+export const ShougiName = styled.h2`
+  position: fixed;
+  top: 7%;
+  right: -10%;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12rem;
+  color: darkred;
+  filter: drop-shadow(2px 2px 5px black);
+  background-color: darkred;
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+
+  ${window.innerWidth <= 900 &&
+    css`
+      top: 20px;
+      font-size: 10rem;
+    `}
 `;

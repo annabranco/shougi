@@ -97,7 +97,6 @@ export const PieceFigure = styled.div`
 `;
 
 export const PieceName = styled.div`
-  margin: 3px 0 0;
   color: ${props => (props.promoted ? 'darkred' : 'black')};
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
   font-size: ${returnResponsiveValue('1.4rem', '1.6rem', '1.8rem', '1.6rem')};

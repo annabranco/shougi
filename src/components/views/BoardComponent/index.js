@@ -6,7 +6,7 @@ import {
   boardPropType,
   pieceDetailsPropTypes
 } from '../../../system/interfaces';
-import { Gameboard, Square, BoardArea } from './styles';
+import { Gameboard, Square, BoardArea, Author } from './styles';
 
 const BoardComponent = ({
   currentBoard,
@@ -17,6 +17,7 @@ const BoardComponent = ({
   capturePiece
 }) => (
   <BoardArea>
+    <Author>アッナブランコ</Author>
     <Gameboard size={BOARD_SIZE}>
       {Object.entries(currentBoard)
         .reverse()

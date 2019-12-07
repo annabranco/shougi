@@ -57,7 +57,7 @@ export const CapturedSquare = styled.div`
 
 export const CapturedText = styled.p`
   position: ${window.innerWidth >= 1030 ? 'default' : 'absolute'};
-  font-family: 'Corben', sans-serif;
+  font-family: 'Sawarabi Mincho', sans-serif;
   font-size: ${window.innerWidth >= 1030 ? '1rem' : '0.8rem'};
   color: black;
   ${window.innerWidth <= 1030 &&

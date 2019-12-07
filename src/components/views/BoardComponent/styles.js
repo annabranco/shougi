@@ -1,13 +1,10 @@
 import styled, { css } from 'styled-components';
-import {
-  MAX_GRID_SIZE,
-  MIN_GRID_SIZE,
-  BOARD_BORDERS
-} from '../../../system/setup/board';
-import { returnResponsiveValue, getGridsSize } from '../../../system/utils';
+import { BOARD_BORDERS } from '../../../system/setup/board';
+import { getGridsSize } from '../../../system/utils';
 import { Wood, Marble } from '../../../assets/images';
 
 export const BoardArea = styled.div`
+  position: relative;
   margin-top: 20px;
   border: 2px solid black;
   padding: ${`${BOARD_BORDERS}px`};
@@ -52,4 +49,13 @@ export const Square = styled.div`
     css`
       box-shadow: inset 0 0 10px 1px blue;
     `}
+`;
+
+export const Author = styled.p`
+  position: absolute;
+  bottom: 60px;
+  right: -42px;
+  transform: rotate(270deg);
+  font-family: 'Noto Sans JP', sans-serif;
+  opacity: 0.2;
 `;

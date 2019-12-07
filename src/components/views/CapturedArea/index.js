@@ -11,7 +11,7 @@ import PieceComponent from '../PieceComponent';
 
 const CapturedArea = ({ team, capturedPieces, selectedPiece, onClick }) => (
   <CapturedPiecesWrapper team={team}>
-    <CapturedText team={team}>Captured</CapturedText>
+    <CapturedText team={team}>捕らえた</CapturedText>
     <CapturedGrid>
       {capturedPieces.map(piece => (
         <CapturedSquare key={piece.id}>
