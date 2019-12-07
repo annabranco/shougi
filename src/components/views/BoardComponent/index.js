@@ -6,7 +6,7 @@ import {
   boardPropType,
   pieceDetailsPropTypes
 } from '../../../system/interfaces';
-import { Gameboard, Square } from './styles';
+import { Gameboard, Square, BoardArea } from './styles';
 
 const BoardComponent = ({
   currentBoard,
@@ -16,35 +16,37 @@ const BoardComponent = ({
   onClickSquare,
   capturePiece
 }) => (
-  <Gameboard size={BOARD_SIZE}>
-    {Object.entries(currentBoard)
-      .reverse()
-      .map(([y, row]) =>
-        Object.keys(row).map(x => {
-          const piece = currentBoard[y][x];
-          return (
-            <Square
-              id={`${y}-${x}`}
-              className="square"
-              key={`${y}-${x}`}
-              allowedMoves={allowedMoves}
-              onClick={onClickSquare}
-            >
-              {currentBoard[y][x] && (
-                <PieceHandler
-                  piece={piece}
-                  onSelectPiece={onSelectPiece}
-                  selectedPiece={selectedPiece}
-                  capturePiece={capturePiece}
-                  allowedMoves={allowedMoves}
-                  currentBoard={currentBoard}
-                />
-              )}
-            </Square>
-          );
-        })
-      )}
-  </Gameboard>
+  <BoardArea>
+    <Gameboard size={BOARD_SIZE}>
+      {Object.entries(currentBoard)
+        .reverse()
+        .map(([y, row]) =>
+          Object.keys(row).map(x => {
+            const piece = currentBoard[y][x];
+            return (
+              <Square
+                id={`${y}-${x}`}
+                className="square"
+                key={`${y}-${x}`}
+                allowedMoves={allowedMoves}
+                onClick={onClickSquare}
+              >
+                {currentBoard[y][x] && (
+                  <PieceHandler
+                    piece={piece}
+                    onSelectPiece={onSelectPiece}
+                    selectedPiece={selectedPiece}
+                    capturePiece={capturePiece}
+                    allowedMoves={allowedMoves}
+                    currentBoard={currentBoard}
+                  />
+                )}
+              </Square>
+            );
+          })
+        )}
+    </Gameboard>
+  </BoardArea>
 );
 
 BoardComponent.propTypes = {

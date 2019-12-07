@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const ErrorArea = styled.div`
-padding: 80px;
+  padding: 80px;
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-      #ffffff,
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
-    );
+    #ffffff,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
 `;
 
 export const ErrorTitle = styled.h2`
