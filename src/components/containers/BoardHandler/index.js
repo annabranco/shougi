@@ -172,7 +172,7 @@ class BoardHandler extends Component {
     }));
 
     this.removePiece(coordinates);
-    this.movePiece(coordinates);
+    setTimeout(() => this.movePiece(coordinates), 1);
   };
 
   onClickSquare = event => {
