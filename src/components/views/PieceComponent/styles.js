@@ -30,65 +30,69 @@ export const PieceFigure = styled.div`
     width: 0;
     height: 5px;
     border-style: solid;
-    border-color: transparent transparent
+    border-color: ${props =>
+        props.piece.team === 'black' ? 'rgb(161, 147, 126)' : 'transparent'}
+      transparent
       ${props =>
-        props.piece.team === 'white'
-          ? 'rgb(243, 223, 196)'
-          : 'rgb(161, 147, 126)'};
+        props.piece.team === 'white' ? 'rgb(243, 223, 196)' : 'transparent'};
     border-width: ${returnResponsiveValue(
       '5px 15.5px 5px 15.5px',
       '5px 18.5px 5px 18.5px',
       '5px 19px 5px 19px',
       '5px 22px 5px 22px'
     )};
-    filter: drop-shadow(0 -2px 1px black);
+    filter: drop-shadow(
+      0 ${props => (props.piece.team === 'white' ? '-2px' : '2px')} 1px black
+    );
     transition: border-color 0.5s ease;
-    transform: ${props =>
-      props.piece.team === 'white' ? 'none' : 'rotate(180deg)'};
   }
 
   &:hover {
     ${props =>
       props.selectedPiece && props.piece.id === props.selectedPiece.id
         ? css`
-            box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px blue,
+            box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px gold,
               inset 1px 0 2px 0 white, inset 0 0 30px 2px rgb(145, 105, 105);
             &::before {
-              border-color: transparent transparent rgb(186, 158, 145);
+              position: absolute;
+              content: '${props.placeholder}';
+              top: ${props.piece.team === 'black' ? 'auto' : '-18px'};
+              bottom: ${props.piece.team === 'white' ? 'auto' : '-18px'};
+              font-size: 0.8rem;
+              z-index: 9;
+              height: auto;
+              width: 100%;
+              background: ${
+                props.piece.team === 'white'
+                  ? 'rgba(255, 255, 255, 0.8)'
+                  : 'rgba(0, 0, 0, 0.8)'
+              };
+              color: ${props.piece.team === 'white' ? 'black' : 'white'};
+              border-width: 0;
+              border-radius: 2px;
+              text-align: center;
             }
           `
         : css`
             box-shadow: 2px 2px 5px 0 black, inset 1px 0 2px 0 white,
               inset 0 0 30px 2px rgb(145, 105, 105);
             &::before {
-              border-color: transparent transparent rgb(186, 158, 145);
+              border-color: ${props.piece.team === 'black'
+                  ? 'rgb(151, 123, 114)'
+                  : 'transparent'}
+                transparent
+                ${props.piece.team === 'white'
+                  ? 'rgb(186, 158, 145)'
+                  : 'transparent'};
             }
           `}
   }
-
   ${props =>
     props.selectedPiece &&
     props.piece.id === props.selectedPiece.id &&
     css`
-      box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px blue,
+      box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px rgba(185, 164, 63, 0.8),
         inset 1px 1px 2px 0 white, inset 0 0 30px 2px rgb(145, 105, 105);
-
-      ${window.innerWidth >= 500 &&
-        css`
-      &::before {
-        position: absolute;
-        content: '${props.placeholder}';
-        top: -18px;
-        font-size: 0.8rem;
-        z-index: 9;
-        height: auto;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        border-width: 0;
-        border-radius: 2px;
-        text-align: center;
-      }
-      `}
     `}
 `;
 

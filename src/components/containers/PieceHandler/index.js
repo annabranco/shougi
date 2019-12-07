@@ -26,6 +26,7 @@ class PieceHandler extends PureComponent {
     const { piece } = this.props;
     const { row, column } = getSquareDetails(pieceCoordinates);
     const movements = [];
+    let move;
     piece.moves.forEach(baseMovement => {
       if (
         baseMovement.x !== 0 &&
@@ -39,7 +40,7 @@ class PieceHandler extends PureComponent {
           const adjX = baseMovement.x > 0 ? n : -n;
           const adjY = baseMovement.y > 0 ? n : -n;
 
-          const move = { x: adjX + column, y: adjY + row };
+          move = { x: adjX + column, y: adjY + row };
           if (this.isMovementValid(move)) {
             if (this.canSquareBeAttacked(move)) {
               movements.push(move);
@@ -74,7 +75,7 @@ class PieceHandler extends PureComponent {
             adjY = -n;
           }
 
-          const move = { x: adjX + column, y: adjY + row };
+          move = { x: adjX + column, y: adjY + row };
           if (this.isMovementValid(move)) {
             if (this.canSquareBeAttacked(move)) {
               movements.push(move);
@@ -84,7 +85,11 @@ class PieceHandler extends PureComponent {
           }
         }
       } else {
-        const move = { x: baseMovement.x + column, y: baseMovement.y + row };
+        if (piece.team === 'white') {
+          move = { x: column + baseMovement.x, y: row + baseMovement.y };
+        } else {
+          move = { x: column - baseMovement.x, y: row - baseMovement.y };
+        }
         if (this.isMovementValid(move)) {
           if (this.canSquareBeAttacked(move)) {
             movements.push(move);
