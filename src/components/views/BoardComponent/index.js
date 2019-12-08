@@ -27,10 +27,11 @@ const BoardComponent = ({
             return (
               <Square
                 id={`${y}-${x}`}
-                className="square"
                 key={`${y}-${x}`}
                 allowedMoves={allowedMoves}
                 onClick={onClickSquare}
+                pieceOnSquare={piece}
+                attackingPiece={selectedPiece}
               >
                 {currentBoard[y][x] && (
                   <PieceHandler

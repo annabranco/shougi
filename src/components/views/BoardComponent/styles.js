@@ -44,11 +44,23 @@ export const Square = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${props =>
-    props.allowedMoves.includes(props.id) &&
-    css`
-      box-shadow: inset 0 0 10px 1px blue;
-    `}
+  ${props => {
+    if (props.allowedMoves.includes(props.id)) {
+      if (
+        props.pieceOnSquare &&
+        props.attackingPiece &&
+        props.pieceOnSquare.team !== props.attackingPiece.team
+      ) {
+        return css`
+          box-shadow: inset 0 0 10px 1px red, 0 0 10px 0 red;
+        `;
+      }
+      return css`
+        box-shadow: inset 0 0 10px 1px blue;
+      `;
+    }
+    return null;
+  }}
 `;
 
 export const Author = styled.p`

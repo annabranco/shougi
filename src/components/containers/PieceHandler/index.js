@@ -7,6 +7,7 @@ import {
   pieceDetailsPropTypes,
   boardPropType
 } from '../../../system/interfaces';
+import { ATTACK, PASS_THROUGH } from '../../../system/constants';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
@@ -42,8 +43,12 @@ class PieceHandler extends PureComponent {
 
           move = { x: adjX + column, y: adjY + row };
           if (this.isMovementValid(move)) {
-            if (this.canSquareBeAttacked(move)) {
+            const canMoveIntoSquare = this.canMoveIntoSquare(move);
+            if (canMoveIntoSquare) {
               movements.push(move);
+              if (canMoveIntoSquare === ATTACK) {
+                break;
+              }
             } else {
               break;
             }
@@ -77,8 +82,12 @@ class PieceHandler extends PureComponent {
 
           move = { x: adjX + column, y: adjY + row };
           if (this.isMovementValid(move)) {
-            if (this.canSquareBeAttacked(move)) {
+            const canMoveIntoSquare = this.canMoveIntoSquare(move);
+            if (canMoveIntoSquare) {
               movements.push(move);
+              if (canMoveIntoSquare === ATTACK) {
+                break;
+              }
             } else {
               break;
             }
@@ -91,7 +100,7 @@ class PieceHandler extends PureComponent {
           move = { x: column - baseMovement.x, y: row - baseMovement.y };
         }
         if (this.isMovementValid(move)) {
-          if (this.canSquareBeAttacked(move)) {
+          if (this.canMoveIntoSquare(move)) {
             movements.push(move);
           }
         }
@@ -112,17 +121,17 @@ class PieceHandler extends PureComponent {
     return false;
   };
 
-  canSquareBeAttacked = square => {
+  canMoveIntoSquare = square => {
     if (this.props.currentBoard[square.y][square.x]) {
       if (
         this.props.currentBoard[square.y][square.x].team !==
         this.props.piece.team
       ) {
-        return true;
+        return ATTACK;
       }
       return false;
     }
-    return true;
+    return PASS_THROUGH;
   };
 
   onClickPiece = event => {
