@@ -5,6 +5,8 @@ import { PieceFigure, PieceName } from './styles';
 
 const PieceComponent = ({ piece, onClick, selectedPiece }) => (
   <PieceFigure
+    id={piece.id}
+    data-team={piece.team}
     onClick={onClick}
     role="button"
     tabIndex={0}

@@ -52,7 +52,7 @@ export const Square = styled.div`
         props.pieceOnSquare.team !== props.attackingPiece.team
       ) {
         return css`
-          box-shadow: inset 0 0 10px 1px red, 0 0 10px 0 red;
+          box-shadow: inset 0 0 10px 0 red, 0 0 5px 0 red;
         `;
       }
       return css`

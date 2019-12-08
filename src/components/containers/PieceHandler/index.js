@@ -2,12 +2,17 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import PieceComponent from '../../views/PieceComponent';
 import { BOARD_SIZE } from '../../../system/setup';
-import { getSquareDetails } from '../../../system/utils';
+import { getSquareDetails, getFromBoard } from '../../../system/utils';
 import {
   pieceDetailsPropTypes,
   boardPropType
 } from '../../../system/interfaces';
-import { ATTACK, PASS_THROUGH } from '../../../system/constants';
+import {
+  ATTACK,
+  PASS_THROUGH,
+  WHITE,
+  EMPTY_SQUARES
+} from '../../../system/constants';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
@@ -94,7 +99,7 @@ class PieceHandler extends PureComponent {
           }
         }
       } else {
-        if (piece.team === 'white') {
+        if (piece.team === WHITE) {
           move = { x: column + baseMovement.x, y: row + baseMovement.y };
         } else {
           move = { x: column - baseMovement.x, y: row - baseMovement.y };

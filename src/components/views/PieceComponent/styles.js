@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { returnResponsiveValue } from '../../../system/utils';
+import { BLACK, WHITE } from '../../../system/constants';
 
 export const PieceFigure = styled.div`
   position: relative;
@@ -10,8 +11,7 @@ export const PieceFigure = styled.div`
   height: 70%;
   width: 50%;
   box-shadow: 1px 1px 4px 1px black,
-    inset 1px ${props => (props.piece.team === 'white' ? '0' : '1px')} 2px 0
-      white;
+    inset 1px ${props => (props.piece.team === WHITE ? '0' : '1px')} 2px 0 white;
   background: linear-gradient(rgb(243, 223, 196), rgb(148, 135, 115));
   outline: none;
   cursor: pointer;
@@ -23,18 +23,18 @@ export const PieceFigure = styled.div`
 
   &::before {
     position: absolute;
-    top: ${props => (props.piece.team === 'black' ? 'auto' : '-15px')};
-    bottom: ${props => (props.piece.team === 'white' ? 'auto' : '-15px')};
+    top: ${props => (props.piece.team === BLACK ? 'auto' : '-15px')};
+    bottom: ${props => (props.piece.team === WHITE ? 'auto' : '-15px')};
     left: 0;
     content: '';
     width: 0;
     height: 5px;
     border-style: solid;
     border-color: ${props =>
-        props.piece.team === 'black' ? 'rgb(161, 147, 126)' : 'transparent'}
+        props.piece.team === BLACK ? 'rgb(161, 147, 126)' : 'transparent'}
       transparent
       ${props =>
-        props.piece.team === 'white' ? 'rgb(243, 223, 196)' : 'transparent'};
+        props.piece.team === WHITE ? 'rgb(243, 223, 196)' : 'transparent'};
     border-width: ${returnResponsiveValue(
       '5px 15.5px 5px 15.5px',
       '5px 18.5px 5px 18.5px',
@@ -42,7 +42,7 @@ export const PieceFigure = styled.div`
       '5px 22px 5px 22px'
     )};
     filter: drop-shadow(
-      0 ${props => (props.piece.team === 'white' ? '-2px' : '2px')} 1px black
+      0 ${props => (props.piece.team === WHITE ? '-2px' : '2px')} 1px black
     );
     transition: border-color 0.5s ease;
   }
@@ -56,18 +56,18 @@ export const PieceFigure = styled.div`
             &::before {
               position: absolute;
               content: '${props.placeholder}';
-              top: ${props.piece.team === 'black' ? 'auto' : '-18px'};
-              bottom: ${props.piece.team === 'white' ? 'auto' : '-18px'};
+              top: ${props.piece.team === BLACK ? 'auto' : '-18px'};
+              bottom: ${props.piece.team === WHITE ? 'auto' : '-18px'};
               font-size: 0.8rem;
               z-index: 9;
               height: auto;
               width: 100%;
               background: ${
-                props.piece.team === 'white'
+                props.piece.team === WHITE
                   ? 'rgba(255, 255, 255, 0.8)'
                   : 'rgba(0, 0, 0, 0.8)'
               };
-              color: ${props.piece.team === 'white' ? 'black' : 'white'};
+              color: ${props.piece.team === WHITE ? BLACK : WHITE};
               border-width: 0;
               border-radius: 2px;
               text-align: center;
@@ -77,11 +77,11 @@ export const PieceFigure = styled.div`
             box-shadow: 2px 2px 5px 0 black, inset 1px 0 2px 0 white,
               inset 0 0 30px 2px rgb(145, 105, 105);
             &::before {
-              border-color: ${props.piece.team === 'black'
+              border-color: ${props.piece.team === BLACK
                   ? 'rgb(151, 123, 114)'
                   : 'transparent'}
                 transparent
-                ${props.piece.team === 'white'
+                ${props.piece.team === WHITE
                   ? 'rgb(186, 158, 145)'
                   : 'transparent'};
             }
@@ -97,7 +97,7 @@ export const PieceFigure = styled.div`
 `;
 
 export const PieceName = styled.div`
-  color: ${props => (props.promoted ? 'darkred' : 'black')};
+  color: ${props => (props.promoted ? 'darkred' : BLACK)};
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
   font-size: ${returnResponsiveValue('1.4rem', '1.6rem', '1.8rem', '1.6rem')};
   line-height: ${returnResponsiveValue(0, 0, 0, 1)};
