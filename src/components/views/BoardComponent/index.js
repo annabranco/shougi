@@ -10,11 +10,12 @@ import { Gameboard, Square, BoardArea, Author } from './styles';
 
 const BoardComponent = ({
   currentBoard,
-  onSelectPiece,
+  selectPiece,
   selectedPiece,
   allowedMoves,
   onClickSquare,
-  capturePiece
+  capturePiece,
+  calculateAllMovements
 }) => (
   <BoardArea>
     <Author>アッナブランコ</Author>
@@ -36,11 +37,11 @@ const BoardComponent = ({
                 {currentBoard[y][x] && (
                   <PieceHandler
                     piece={piece}
-                    onSelectPiece={onSelectPiece}
+                    selectPiece={selectPiece}
                     selectedPiece={selectedPiece}
                     capturePiece={capturePiece}
                     allowedMoves={allowedMoves}
-                    currentBoard={currentBoard}
+                    calculateAllMovements={calculateAllMovements}
                   />
                 )}
               </Square>
@@ -53,11 +54,12 @@ const BoardComponent = ({
 
 BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,
-  onSelectPiece: PropTypes.func.isRequired,
+  selectPiece: PropTypes.func.isRequired,
   selectedPiece: pieceDetailsPropTypes,
   allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClickSquare: PropTypes.func.isRequired,
-  capturePiece: PropTypes.func.isRequired
+  capturePiece: PropTypes.func.isRequired,
+  calculateAllMovements: PropTypes.func.isRequired
 };
 
 BoardComponent.defaultProps = {

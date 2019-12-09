@@ -6,54 +6,19 @@ import {
   getSquareId,
   getFromBoard
 } from '../../../system/utils';
-import {
-  W_OUSHOU,
-  W_HISHA,
-  W_KAKUGYOU,
-  W_KYOUSHA_L,
-  W_KYOUSHA_R,
-  W_KEIMA_L,
-  W_KEIMA_R,
-  W_GINSHOU_L,
-  W_GINSHOU_R,
-  W_KINSHOU_L,
-  W_KINSHOU_R,
-  W_FUHYOU_1,
-  W_FUHYOU_2,
-  W_FUHYOU_3,
-  W_FUHYOU_4,
-  W_FUHYOU_5,
-  W_FUHYOU_6,
-  W_FUHYOU_7,
-  W_FUHYOU_8,
-  W_FUHYOU_9,
-  B_KYOUSHA_L,
-  B_KEIMA_L,
-  B_GINSHOU_L,
-  B_KINSHOU_L,
-  B_GYOKUSHOU,
-  B_KINSHOU_R,
-  B_GINSHOU_R,
-  B_KEIMA_R,
-  B_KYOUSHA_R,
-  B_KAKUGYOU,
-  B_HISHA,
-  B_FUHYOU_1,
-  B_FUHYOU_2,
-  B_FUHYOU_3,
-  B_FUHYOU_4,
-  B_FUHYOU_5,
-  B_FUHYOU_6,
-  B_FUHYOU_7,
-  B_FUHYOU_8,
-  B_FUHYOU_9,
-  ALL_PIECES
-} from '../../../system/setup/pieces';
+import { ALL_PIECES } from '../../../system/setup/pieces';
 import { PlayingArea } from './styles';
 import CapturedArea from '../../views/CapturedArea';
-import { WHITE, EMPTY_SQUARES, BLACK } from '../../../system/constants';
+import {
+  WHITE,
+  BLACK,
+  EMPTY_SQUARES,
+  NUMBERS,
+  ATTACK,
+  PASS_THROUGH
+} from '../../../system/constants';
 
-class BoardHandler extends Component {
+class GameHandler extends Component {
   state = {
     currentBoard: undefined,
     selectedPiece: undefined,
@@ -71,47 +36,13 @@ class BoardHandler extends Component {
   }
 
   setupGame = () => {
-    this.placePiece(W_KYOUSHA_L, '1-1');
-    this.placePiece(W_KEIMA_L, '1-2');
-    this.placePiece(W_GINSHOU_L, '1-3');
-    this.placePiece(W_KINSHOU_L, '1-4');
-    this.placePiece(W_OUSHOU, '1-5');
-    this.placePiece(W_KINSHOU_R, '1-6');
-    this.placePiece(W_GINSHOU_R, '1-7');
-    this.placePiece(W_KEIMA_R, '1-8');
-    this.placePiece(W_KYOUSHA_R, '1-9');
-    this.placePiece(W_KAKUGYOU, '2-2');
-    this.placePiece(W_HISHA, '2-8');
-    this.placePiece(W_FUHYOU_1, '3-1');
-    this.placePiece(W_FUHYOU_2, '3-2');
-    this.placePiece(W_FUHYOU_3, '3-3');
-    this.placePiece(W_FUHYOU_4, '3-4');
-    this.placePiece(W_FUHYOU_5, '3-5');
-    this.placePiece(W_FUHYOU_6, '3-6');
-    this.placePiece(W_FUHYOU_7, '3-7');
-    this.placePiece(W_FUHYOU_8, '3-8');
-    this.placePiece(W_FUHYOU_9, '3-9');
-
-    this.placePiece(B_KYOUSHA_L, '9-1');
-    this.placePiece(B_KEIMA_L, '9-2');
-    this.placePiece(B_GINSHOU_L, '9-3');
-    this.placePiece(B_KINSHOU_L, '9-4');
-    this.placePiece(B_GYOKUSHOU, '9-5');
-    this.placePiece(B_KINSHOU_R, '9-6');
-    this.placePiece(B_GINSHOU_R, '9-7');
-    this.placePiece(B_KEIMA_R, '9-8');
-    this.placePiece(B_KYOUSHA_R, '9-9');
-    this.placePiece(B_KAKUGYOU, '8-2');
-    this.placePiece(B_HISHA, '8-8');
-    this.placePiece(B_FUHYOU_1, '7-1');
-    this.placePiece(B_FUHYOU_2, '7-2');
-    this.placePiece(B_FUHYOU_3, '7-3');
-    this.placePiece(B_FUHYOU_4, '7-4');
-    this.placePiece(B_FUHYOU_5, '7-5');
-    this.placePiece(B_FUHYOU_6, '7-6');
-    this.placePiece(B_FUHYOU_7, '7-7');
-    this.placePiece(B_FUHYOU_8, '7-8');
-    this.placePiece(B_FUHYOU_9, '7-9');
+    Object.keys(ALL_PIECES).forEach(team => {
+      ALL_PIECES[team].forEach(piece => {
+        if (piece.initialSetup) {
+          this.placePiece(piece, piece.initialSetup);
+        }
+      });
+    });
   };
 
   generateBoard = () => {
@@ -127,7 +58,7 @@ class BoardHandler extends Component {
     this.setState({ currentBoard });
   };
 
-  onSelectPiece = (piece, pieceCoordinates, moves) => {
+  selectPiece = (piece, pieceCoordinates, moves) => {
     let allowedMoves = moves;
     if (typeof moves[0] === 'object') {
       allowedMoves = moves.map(move => getSquareId(move));
@@ -142,7 +73,7 @@ class BoardHandler extends Component {
     const { pieceCoordinates } = this.state;
     const { row, column } = getSquareDetails(coordinates);
 
-    console.log(`Piece moved: ${piece.name} => row: ${row}, column: ${column}`);
+    console.info(`${column}${NUMBERS[row]}${piece.shortName}`);
 
     this.removePiece(pieceCoordinates);
     this.placePiece(piece, coordinates);
@@ -277,7 +208,7 @@ class BoardHandler extends Component {
 
     // const movements = this.calculateAllMovements(pieceCoordinates);
     const movements = allPossibilities;
-    this.onSelectPiece(piece, '0-0', movements);
+    this.selectPiece(piece, '0-0', movements);
   };
 
   dropPiece = (coordinates, piece = this.state.selectedPiece) => {
@@ -285,9 +216,8 @@ class BoardHandler extends Component {
       captured => captured.id !== piece.id
     );
     const { row, column } = getSquareDetails(coordinates);
-    console.log(
-      `Piece dropped: ${piece.name} => row: ${row}, column: ${column}`
-    );
+
+    console.info(`${column}${NUMBERS[row]}${piece.shortName}`);
 
     this.setState(prevState => ({
       capturedPieces: {
@@ -296,6 +226,115 @@ class BoardHandler extends Component {
       }
     }));
     this.placePiece(piece, coordinates);
+  };
+
+  calculateAllMovements = (piece, pieceCoordinates) => {
+    const { row, column } = getSquareDetails(pieceCoordinates);
+    const movements = [];
+    let move;
+    piece.moves.forEach(baseMovement => {
+      if (
+        baseMovement.x !== 0 &&
+        baseMovement.y !== 0 &&
+        (baseMovement.x === BOARD_SIZE ||
+          baseMovement.x === -BOARD_SIZE ||
+          baseMovement.y === BOARD_SIZE ||
+          baseMovement.y === -BOARD_SIZE)
+      ) {
+        for (let n = 1; n <= BOARD_SIZE; n += 1) {
+          const adjX = baseMovement.x > 0 ? n : -n;
+          const adjY = baseMovement.y > 0 ? n : -n;
+
+          move = { x: adjX + column, y: adjY + row };
+          if (this.isMovementValid(move)) {
+            const canMoveIntoSquare = this.canMoveIntoSquare(move, piece);
+            if (canMoveIntoSquare) {
+              movements.push(move);
+              if (canMoveIntoSquare === ATTACK) {
+                break;
+              }
+            } else {
+              break;
+            }
+          }
+        }
+      } else if (
+        baseMovement.x === BOARD_SIZE ||
+        baseMovement.x === -BOARD_SIZE ||
+        baseMovement.y === BOARD_SIZE ||
+        baseMovement.y === -BOARD_SIZE
+      ) {
+        for (let n = 1; n <= BOARD_SIZE; n += 1) {
+          let adjX;
+          let adjY;
+
+          if (baseMovement.x === 0) {
+            adjX = 0;
+          } else if (baseMovement.x > 0) {
+            adjX = n;
+          } else if (baseMovement.x < 0) {
+            adjX = -n;
+          }
+
+          if (baseMovement.y === 0) {
+            adjY = 0;
+          } else if (baseMovement.y > 0) {
+            adjY = n;
+          } else if (baseMovement.y < 0) {
+            adjY = -n;
+          }
+
+          move = { x: adjX + column, y: adjY + row };
+          if (this.isMovementValid(move)) {
+            const canMoveIntoSquare = this.canMoveIntoSquare(move, piece);
+            if (canMoveIntoSquare) {
+              movements.push(move);
+              if (canMoveIntoSquare === ATTACK) {
+                break;
+              }
+            } else {
+              break;
+            }
+          }
+        }
+      } else {
+        if (piece.team === WHITE) {
+          move = { x: column + baseMovement.x, y: row + baseMovement.y };
+        } else {
+          move = { x: column - baseMovement.x, y: row - baseMovement.y };
+        }
+        if (this.isMovementValid(move)) {
+          if (this.canMoveIntoSquare(move, piece)) {
+            movements.push(move);
+          }
+        }
+      }
+    });
+    return movements;
+  };
+
+  isMovementValid = move => {
+    if (
+      move.x > 0 &&
+      move.x <= BOARD_SIZE &&
+      move.y > 0 &&
+      move.y <= BOARD_SIZE
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  canMoveIntoSquare = (square, piece) => {
+    const { currentBoard } = this.state;
+
+    if (currentBoard[square.y][square.x]) {
+      if (currentBoard[square.y][square.x].team !== piece.team) {
+        return ATTACK;
+      }
+      return false;
+    }
+    return PASS_THROUGH;
   };
 
   render() {
@@ -319,11 +358,12 @@ class BoardHandler extends Component {
             />
             <BoardComponent
               currentBoard={currentBoard}
-              onSelectPiece={this.onSelectPiece}
+              selectPiece={this.selectPiece}
               selectedPiece={selectedPiece}
               allowedMoves={allowedMoves}
               onClickSquare={this.onClickSquare}
               capturePiece={this.capturePiece}
+              calculateAllMovements={this.calculateAllMovements}
             />
             <CapturedArea
               team="white"
@@ -340,4 +380,4 @@ class BoardHandler extends Component {
   }
 }
 
-export default BoardHandler;
+export default GameHandler;

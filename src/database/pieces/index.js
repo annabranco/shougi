@@ -116,7 +116,7 @@ export const NARIGIN = {
   shortName: '全',
   romaji: 'narigin',
   english: 'Prom. Silver',
-  shortEnglish: '+Silver',
+  shortEnglish: '+Silver+',
   id: 'narigin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -127,7 +127,7 @@ export const NARIKEI = {
   shortName: '圭',
   romaji: 'narikei',
   english: 'Prom. Knight',
-  shortEnglish: '+Knight',
+  shortEnglish: '+Knight+',
   id: 'narikei',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -138,7 +138,7 @@ export const NARIKYOU = {
   shortName: '杏',
   romaji: 'narikyō',
   english: 'Prom. Lance',
-  shortEnglish: '+Lance',
+  shortEnglish: '+Lance+',
   id: 'narikyō',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
@@ -149,7 +149,7 @@ export const TOKIN = {
   shortName: 'と',
   romaji: 'tokin',
   english: 'Prom. Pawn',
-  shortEnglish: '+Pawn',
+  shortEnglish: '+Pawn+',
   id: 'tokin',
   promoted: true,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]

@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardHandler from '../../containers/BoardHandler';
+import GameHandler from '../../containers/GameHandler';
 import ErrorBoundary from '../ErrorBoundary';
 import MainArea from '../../containers/MainArea';
 
@@ -7,7 +7,7 @@ const App = () => {
   return (
     <ErrorBoundary>
       <MainArea>
-        <BoardHandler />
+        <GameHandler />
       </MainArea>
     </ErrorBoundary>
   );
