@@ -9,13 +9,17 @@ import {
 import { ALL_PIECES } from '../../../system/setup/pieces';
 import { PlayingArea } from './styles';
 import CapturedArea from '../../views/CapturedArea';
+import { COLUMNS_WITH_PAWNS } from '../../../system/constants/modifiers';
 import {
   WHITE,
   BLACK,
   EMPTY_SQUARES,
   NUMBERS,
   ATTACK,
-  PASS_THROUGH
+  PASS_THROUGH,
+  IS_PAWN,
+  IS_LANCE,
+  IS_KNIGHT
 } from '../../../system/constants';
 
 class GameHandler extends Component {
@@ -202,12 +206,36 @@ class GameHandler extends Component {
       dataset: { team },
       id
     } = event.currentTarget;
+    let movements = getFromBoard(currentBoard, EMPTY_SQUARES);
     const piece = capturedPieces[team].find(captured => captured.id === id);
 
-    const allPossibilities = getFromBoard(currentBoard, EMPTY_SQUARES);
-
-    // const movements = this.calculateAllMovements(pieceCoordinates);
-    const movements = allPossibilities;
+    const squaresWithPawn = getFromBoard(
+      currentBoard,
+      COLUMNS_WITH_PAWNS,
+      team
+    );
+    const lastRows = piece.team === WHITE ? ['9', '8'] : ['1', '2'];
+    switch (piece.english) {
+      case IS_PAWN:
+        movements = movements.filter(coordinates => {
+          return !squaresWithPawn.includes(coordinates.match(/\d$/)[0]);
+        });
+      // eslint-disable-next-line no-fallthrough
+      case IS_LANCE:
+        movements = movements.filter(
+          coordinates => coordinates.match(/\d/)[0] !== lastRows[0]
+        );
+        break;
+      case IS_KNIGHT:
+        movements = movements.filter(
+          coordinates =>
+            coordinates.match(/\d/)[0] !== lastRows[0] &&
+            coordinates.match(/\d/)[0] !== lastRows[1]
+        );
+        break;
+      default:
+        break;
+    }
     this.selectPiece(piece, '0-0', movements);
   };
 
@@ -335,6 +363,10 @@ class GameHandler extends Component {
       return false;
     }
     return PASS_THROUGH;
+  };
+
+  getColumnsWithoutPawns = () => {
+    getFromBoard();
   };
 
   render() {

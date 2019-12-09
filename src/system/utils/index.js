@@ -13,7 +13,8 @@ import {
   EMPTY_SQUARES,
   OCCUPIED_SQUARES,
   WHITE_SQUARES,
-  BLACK_SQUARES
+  BLACK_SQUARES,
+  COLUMNS_WITH_PAWNS
 } from '../constants';
 
 export const getSquareDetails = square => {
@@ -54,7 +55,7 @@ export const getBoardSize = () => {
   return gridsSize * grids + BOARD_BORDERS * 2 + adjustments;
 };
 
-export const getFromBoard = (currentBoard, argument) => {
+export const getFromBoard = (currentBoard, argument, currentTeam) => {
   const response = [];
   Object.keys(currentBoard).forEach(coordinateY =>
     Object.keys(currentBoard).forEach(coordinateX => {
@@ -83,6 +84,15 @@ export const getFromBoard = (currentBoard, argument) => {
             currentBoard[coordinateY][coordinateX].team === BLACK
           ) {
             response.push(`${coordinateY}-${coordinateX}`);
+          }
+          break;
+        case COLUMNS_WITH_PAWNS:
+          if (
+            currentBoard[coordinateY][coordinateX] &&
+            currentBoard[coordinateY][coordinateX].english === 'Pawn' &&
+            currentBoard[coordinateY][coordinateX].team === currentTeam
+          ) {
+            response.push(coordinateX);
           }
           break;
         default:
