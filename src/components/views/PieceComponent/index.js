@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { pieceDetailsPropTypes } from '../../../system/interfaces';
+import { pieceDetailsPropType } from '../../../system/interfaces';
 import { PieceFigure, PieceName } from './styles';
 
 const PieceComponent = ({ piece, onClick, selectedPiece }) => (
@@ -14,16 +14,16 @@ const PieceComponent = ({ piece, onClick, selectedPiece }) => (
     selectedPiece={selectedPiece}
     piece={piece}
   >
-    <PieceName promoted={piece.promoted}>
+    <PieceName promoted={Boolean(piece.demotion)}>
       {window.innerWidth >= 900 ? piece.name : piece.shortName}
     </PieceName>
   </PieceFigure>
 );
 
 PieceComponent.propTypes = {
-  piece: pieceDetailsPropTypes.isRequired,
+  piece: pieceDetailsPropType.isRequired,
   onClick: PropTypes.func.isRequired,
-  selectedPiece: pieceDetailsPropTypes
+  selectedPiece: pieceDetailsPropType
 };
 
 PieceComponent.defaultProps = {

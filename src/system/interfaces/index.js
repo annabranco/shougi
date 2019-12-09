@@ -1,28 +1,43 @@
-import { PropTypes } from 'prop-types';
+import { shape, number, string, arrayOf } from 'prop-types';
 
-export const coordinatesPropTypes = PropTypes.shape({
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired
+const coordinatesPropType = shape({
+  x: number.isRequired,
+  y: number.isRequired
 });
 
-export const pieceDetailsPropTypes = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  romaji: PropTypes.string.isRequired,
-  english: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  moves: PropTypes.arrayOf(coordinatesPropTypes.isRequired).isRequired,
-  promoted: PropTypes.bool,
-  promotion: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    romaji: PropTypes.string.isRequired,
-    english: PropTypes.string.isRequired,
-    moves: PropTypes.arrayOf(coordinatesPropTypes.isRequired).isRequired
+export const pieceDetailsPropType = shape({
+  name: string.isRequired,
+  shortName: string.isRequired,
+  romaji: string.isRequired,
+  english: string.isRequired,
+  shortEnglish: string.isRequired,
+  id: string.isRequired,
+  moves: arrayOf(coordinatesPropType.isRequired).isRequired,
+  promotion: shape({
+    name: string.isRequired,
+    shortName: string.isRequired,
+    romaji: string.isRequired,
+    english: string.isRequired,
+    shortEnglish: string.isRequired,
+    id: string.isRequired,
+    moves: arrayOf(coordinatesPropType.isRequired).isRequired,
+    demotion: shape({})
+  }),
+  demotion: shape({
+    name: string.isRequired,
+    shortName: string.isRequired,
+    romaji: string.isRequired,
+    english: string.isRequired,
+    shortEnglish: string.isRequired,
+    id: string.isRequired,
+    moves: arrayOf(coordinatesPropType.isRequired).isRequired,
+    promotion: shape({})
   })
 });
 
 // https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
 
-export const squarePropType = (
+export const squareType = (
   propValue,
   key,
   componentName,
@@ -41,6 +56,6 @@ export const squarePropType = (
   );
 };
 
-export const boardPropType = PropTypes.shape({
-  1: squarePropType.isRequired
+export const boardPropType = shape({
+  1: squareType.isRequired
 });

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable prefer-const */
 import {
   FORWARD,
   FORWARD_RIGHT,
@@ -19,9 +21,28 @@ import {
   BACKWARD_DIAGONALS_RIGHT
 } from '../../system/constants';
 
-// HIGHER RANKS
+// Higher Ranks
+let OUSHOU;
+let GYOKUSHOU;
+let KINSHOU;
 
-export const OUSHOU = {
+// Promotions
+let RYUUOO;
+let RYUUMA;
+let NARIGIN;
+let NARIKEI;
+let NARIKYOU;
+let TOKIN;
+
+// Regular Ranks
+let HISHA;
+let KAKUGYOU;
+let GINSHOU;
+let KEIMA;
+let KYOUSHA;
+let FUHYOU;
+
+OUSHOU = {
   name: '王將',
   shortName: '王',
   romaji: 'ōshō',
@@ -40,7 +61,7 @@ export const OUSHOU = {
   ]
 };
 
-export const GYOKUSHOU = {
+GYOKUSHOU = {
   name: '玉將',
   shortName: '玉',
   romaji: 'gyokushō',
@@ -59,7 +80,7 @@ export const GYOKUSHOU = {
   ]
 };
 
-export const KINSHOU = {
+KINSHOU = {
   name: '金將',
   shortName: '金',
   romaji: 'kinshō',
@@ -71,14 +92,14 @@ export const KINSHOU = {
 
 // PROMOTED
 
-export const RYUUOO = {
+RYUUOO = {
   name: '龍王',
   shortName: '龍',
   romaji: 'ryūō',
   english: 'Dragon King',
   shortEnglish: 'Dragon',
   id: 'ryūō',
-  promoted: true,
+  demotion: HISHA,
   moves: [
     FORWARD_LEFT,
     FORWARD_RIGHT,
@@ -91,14 +112,14 @@ export const RYUUOO = {
   ]
 };
 
-export const RYUUMA = {
+RYUUMA = {
   name: '龍馬',
   shortName: '馬',
   romaji: 'ryūma',
   english: 'Dragon Horse',
   shortEnglish: 'Horse',
   id: 'ryūma',
-  promoted: true,
+  demotion: KAKUGYOU,
   moves: [
     FORWARD,
     LEFT,
@@ -111,53 +132,53 @@ export const RYUUMA = {
   ]
 };
 
-export const NARIGIN = {
+NARIGIN = {
   name: '成銀',
   shortName: '全',
   romaji: 'narigin',
   english: 'Prom. Silver',
   shortEnglish: '+Silver+',
   id: 'narigin',
-  promoted: true,
+  demotion: GINSHOU,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
 
-export const NARIKEI = {
+NARIKEI = {
   name: '成桂',
   shortName: '圭',
   romaji: 'narikei',
   english: 'Prom. Knight',
   shortEnglish: '+Knight+',
   id: 'narikei',
-  promoted: true,
+  demotion: KEIMA,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
 
-export const NARIKYOU = {
+NARIKYOU = {
   name: '成香',
   shortName: '杏',
   romaji: 'narikyō',
   english: 'Prom. Lance',
   shortEnglish: '+Lance+',
   id: 'narikyō',
-  promoted: true,
+  demotion: KYOUSHA,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
 
-export const TOKIN = {
+TOKIN = {
   name: 'と金',
   shortName: 'と',
   romaji: 'tokin',
   english: 'Prom. Pawn',
   shortEnglish: '+Pawn+',
   id: 'tokin',
-  promoted: true,
+  demotion: FUHYOU,
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, LEFT, RIGHT, BACK]
 };
 
 // NON-PROMOTED
 
-export const GINSHOU = {
+GINSHOU = {
   name: '銀將',
   shortName: '銀',
   romaji: 'ginshō',
@@ -168,7 +189,7 @@ export const GINSHOU = {
   moves: [FORWARD_LEFT, FORWARD, FORWARD_RIGHT, BACK_LEFT, BACK_RIGHT]
 };
 
-export const KEIMA = {
+KEIMA = {
   name: '桂馬',
   shortName: '桂',
   romaji: 'keima',
@@ -179,7 +200,7 @@ export const KEIMA = {
   moves: [JUMP_FORWARD_LEFT, JUMP_FORWARD_RIGHT]
 };
 
-export const HISHA = {
+HISHA = {
   name: '飛車',
   shortName: '飛',
   romaji: 'hisha',
@@ -190,7 +211,7 @@ export const HISHA = {
   moves: [ALL_FORWARD, ALL_BACK, ALL_LEFT, ALL_RIGHT]
 };
 
-export const KAKUGYOU = {
+KAKUGYOU = {
   name: '角行',
   shortName: '角',
   romaji: 'kakugyō',
@@ -206,7 +227,7 @@ export const KAKUGYOU = {
   ]
 };
 
-export const KYOUSHA = {
+KYOUSHA = {
   name: '香車',
   shortName: '香',
   romaji: 'kyōsha',
@@ -217,7 +238,7 @@ export const KYOUSHA = {
   moves: [ALL_FORWARD]
 };
 
-export const FUHYOU = {
+FUHYOU = {
   name: '歩兵',
   shortName: '歩',
   romaji: 'fuhyō',
@@ -226,4 +247,22 @@ export const FUHYOU = {
   id: 'fuhyō',
   promotion: TOKIN,
   moves: [FORWARD]
+};
+
+export {
+  OUSHOU,
+  GYOKUSHOU,
+  KINSHOU,
+  RYUUOO,
+  RYUUMA,
+  NARIGIN,
+  NARIKEI,
+  NARIKYOU,
+  TOKIN,
+  HISHA,
+  KAKUGYOU,
+  GINSHOU,
+  KEIMA,
+  KYOUSHA,
+  FUHYOU
 };

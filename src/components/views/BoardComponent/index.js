@@ -4,7 +4,7 @@ import PieceHandler from '../../containers/PieceHandler';
 import { BOARD_SIZE } from '../../../system/setup/board';
 import {
   boardPropType,
-  pieceDetailsPropTypes
+  pieceDetailsPropType
 } from '../../../system/interfaces';
 import { Gameboard, Square, BoardArea, Author } from './styles';
 
@@ -55,7 +55,7 @@ const BoardComponent = ({
 BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,
   selectPiece: PropTypes.func.isRequired,
-  selectedPiece: pieceDetailsPropTypes,
+  selectedPiece: pieceDetailsPropType,
   allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClickSquare: PropTypes.func.isRequired,
   capturePiece: PropTypes.func.isRequired,

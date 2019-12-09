@@ -142,6 +142,11 @@ class GameHandler extends Component {
       }
       return null;
     };
+
+    capturedPiece = capturedPiece.demotion
+      ? capturedPiece.demotion
+      : capturedPiece;
+
     const capturedPieceIndex = ALL_PIECES[capturedTeam].findIndex(
       piece => piece.id === cleanId
     );

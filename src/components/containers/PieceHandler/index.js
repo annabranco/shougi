@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import PieceComponent from '../../views/PieceComponent';
-import { pieceDetailsPropTypes } from '../../../system/interfaces';
+import { pieceDetailsPropType } from '../../../system/interfaces';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
-    piece: pieceDetailsPropTypes.isRequired,
+    piece: pieceDetailsPropType.isRequired,
     selectPiece: PropTypes.func.isRequired,
-    selectedPiece: pieceDetailsPropTypes,
+    selectedPiece: pieceDetailsPropType,
     capturePiece: PropTypes.func.isRequired,
     allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
     calculateAllMovements: PropTypes.func.isRequired

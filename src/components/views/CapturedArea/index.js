@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { pieceDetailsPropTypes } from '../../../system/interfaces';
+import { pieceDetailsPropType } from '../../../system/interfaces';
 import {
   CapturedPiecesWrapper,
   CapturedGrid,
@@ -28,8 +28,8 @@ const CapturedArea = ({ team, capturedPieces, selectedPiece, onClick }) => (
 
 CapturedArea.propTypes = {
   team: PropTypes.string,
-  capturedPieces: PropTypes.arrayOf(pieceDetailsPropTypes).isRequired,
-  selectedPiece: pieceDetailsPropTypes,
+  capturedPieces: PropTypes.arrayOf(pieceDetailsPropType).isRequired,
+  selectedPiece: pieceDetailsPropType,
   onClick: PropTypes.func.isRequired
 };
 
