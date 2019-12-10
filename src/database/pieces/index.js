@@ -194,7 +194,7 @@ KEIMA = {
   shortName: '桂',
   romaji: 'keima',
   english: 'Knight',
-  shortEnglish: 'Knightt',
+  shortEnglish: 'Knight',
   id: 'keima',
   promotion: NARIKEI,
   moves: [JUMP_FORWARD_LEFT, JUMP_FORWARD_RIGHT]

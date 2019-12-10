@@ -6,7 +6,11 @@ import {
   getSquareId,
   getFromBoard
 } from '../../../system/utils';
-import { ALL_PIECES } from '../../../system/setup/pieces';
+import {
+  ALL_PIECES,
+  PROMOTIONS,
+  DEMOTIONS
+} from '../../../system/setup/pieces';
 import { PlayingArea } from './styles';
 import CapturedArea from '../../views/CapturedArea';
 import { COLUMNS_WITH_PAWNS } from '../../../system/constants/modifiers';
@@ -81,7 +85,7 @@ class GameHandler extends Component {
 
     this.removePiece(pieceCoordinates);
     this.placePiece(piece, coordinates);
-    this.handlePromotions(piece, coordinates);
+    this.willPromotePiece(piece, coordinates);
   };
 
   removePiece = (coordinates = this.state.pieceCoordinates) => {
@@ -113,50 +117,62 @@ class GameHandler extends Component {
     this.unselectPieces();
   };
 
+  updatePromotion = (capturedPiece, mirrorPiece) => {
+    if (capturedPiece.promotion) {
+      const updatedPromotion = PROMOTIONS[mirrorPiece.id];
+      const { id } = capturedPiece.promotion;
+
+      if (id.includes('captured_')) {
+        updatedPromotion.id = id.slice(9);
+      } else {
+        updatedPromotion.id = `captured_${id}`;
+      }
+      return { promotion: updatedPromotion };
+    }
+    if (capturedPiece.demotion) {
+      const updatedDemotion = DEMOTIONS[mirrorPiece.id];
+      const { id } = capturedPiece.demotion;
+
+      if (id.includes('captured_')) {
+        updatedDemotion.id = id.slice(9);
+      } else {
+        updatedDemotion.id = `captured_${id}`;
+      }
+      return { demotion: updatedDemotion };
+    }
+    return null;
+  };
+
   capturePiece = (coordinates, capturer) => {
     const { row, column } = getSquareDetails(coordinates);
     let capturedPiece = this.state.currentBoard[row][column];
-    const capturedTeam = capturedPiece.id.includes('white') ? WHITE : BLACK;
+    const capturedTeam = capturedPiece.id.includes(WHITE) ? WHITE : BLACK;
 
+    // const updateData = this.updatePromotion(capturedPiece, mirrorPiece);
+
+    if (capturedPiece.demotion) {
+      capturedPiece.demotion.id = capturedPiece.id.includes('captured_')
+        ? `captured_${capturedPiece.demotion.id}`
+        : capturedPiece.demotion.id;
+      capturedPiece = capturedPiece.demotion;
+    }
     const cleanId = capturedPiece.id.includes('captured_')
       ? capturedPiece.id.slice(9)
       : capturedPiece.id;
 
     const newId = capturedPiece.id.includes('captured_')
-      ? capturedPiece.id.slice(9)
-      : `captured_${capturedPiece.id}`;
-
-    const updatePromotion = mirrorPiece => {
-      if (mirrorPiece.promotion) {
-        const updatedPromotion = {
-          ...mirrorPiece.promotion
-        };
-        const { id } = capturedPiece.promotion;
-
-        if (id.includes('captured_')) {
-          updatedPromotion.id = id.slice(9);
-        } else {
-          updatedPromotion.id = `captured_${id}`;
-        }
-        return updatedPromotion;
-      }
-      return null;
-    };
-
-    capturedPiece = capturedPiece.demotion
-      ? capturedPiece.demotion
-      : capturedPiece;
+      ? `${capturer}_${capturedPiece.id.slice(15)}`
+      : `captured_${capturer}_${capturedPiece.id.slice(6)}`;
 
     const capturedPieceIndex = ALL_PIECES[capturedTeam].findIndex(
       piece => piece.id === cleanId
     );
-    const mirrorPiece = ALL_PIECES[capturer][capturedPieceIndex];
+    const mirrorPiece = { ...ALL_PIECES[capturer][capturedPieceIndex] };
 
     capturedPiece = {
-      ...capturedPiece,
+      ...mirrorPiece,
       team: capturer,
-      id: newId,
-      promotion: updatePromotion(mirrorPiece)
+      id: newId
     };
 
     this.setState(prevState => ({
@@ -192,16 +208,33 @@ class GameHandler extends Component {
     }
   };
 
-  handlePromotions = (piece, coordinates) => {
+  handlePromotions = (piece, coordinates, promotion) => {
+    const updatedPromotion = {
+      ...promotion,
+      demotion: { ...DEMOTIONS[promotion.id] },
+      id: piece.id.includes('captured_')
+        ? `captured_${promotion.id}`
+        : promotion.id
+    };
+
+    this.removePiece(coordinates);
+    this.placePiece(updatedPromotion, coordinates);
+  };
+
+  willPromotePiece = (piece, coordinates) => {
     const { row } = getSquareDetails(coordinates);
-    if (piece.team === WHITE) {
-      if (row >= BOARD_SIZE - 2 && piece.promotion) {
-        this.removePiece(coordinates);
-        this.placePiece(piece.promotion, coordinates);
+    const cleanId = piece.id.includes('captured_')
+      ? piece.id.slice(9)
+      : piece.id;
+
+    const promotion = { ...PROMOTIONS[cleanId] };
+    if (promotion.id) {
+      if (
+        (piece.team === WHITE && row >= BOARD_SIZE - 2) ||
+        (piece.team === BLACK && row <= 3 && promotion)
+      ) {
+        this.handlePromotions(piece, coordinates, promotion);
       }
-    } else if (row <= 3 && piece.promotion) {
-      this.removePiece(coordinates);
-      this.placePiece(piece.promotion, coordinates);
     }
   };
 
