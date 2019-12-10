@@ -148,8 +148,6 @@ class GameHandler extends Component {
     let capturedPiece = this.state.currentBoard[row][column];
     const capturedTeam = capturedPiece.id.includes(WHITE) ? WHITE : BLACK;
 
-    // const updateData = this.updatePromotion(capturedPiece, mirrorPiece);
-
     if (capturedPiece.demotion) {
       capturedPiece.demotion.id = capturedPiece.id.includes('captured_')
         ? `captured_${capturedPiece.demotion.id}`
@@ -421,7 +419,7 @@ class GameHandler extends Component {
         {currentBoard ? (
           <PlayingArea>
             <CapturedArea
-              team="black"
+              team={WHITE}
               capturedPieces={capturedPieces.black}
               selectedPiece={selectedPiece}
               onClick={this.onClickCaptured}
@@ -436,7 +434,7 @@ class GameHandler extends Component {
               calculateAllMovements={this.calculateAllMovements}
             />
             <CapturedArea
-              team="white"
+              team={BLACK}
               capturedPieces={capturedPieces.white}
               selectedPiece={selectedPiece}
               onClick={this.onClickCaptured}

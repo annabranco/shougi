@@ -20,10 +20,10 @@ const BoardComponent = ({
   <BoardArea>
     <Author>アッナブランコ</Author>
     <Gameboard size={BOARD_SIZE}>
-      {Object.entries(currentBoard)
-        .reverse()
-        .map(([y, row]) =>
-          Object.keys(row).map(x => {
+      {Object.entries(currentBoard).map(([y, row]) =>
+        Object.keys(row)
+          .reverse()
+          .map(x => {
             const piece = currentBoard[y][x];
             return (
               <Square
@@ -47,7 +47,7 @@ const BoardComponent = ({
               </Square>
             );
           })
-        )}
+      )}
     </Gameboard>
   </BoardArea>
 );
