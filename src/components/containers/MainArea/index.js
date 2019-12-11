@@ -11,15 +11,18 @@ class MainArea extends Component {
   };
 
   componentDidMount() {
-    window.test = this.toggleTesting;
+    window.testing = this.toggleTesting;
     window.change = this.changeTurn;
+    window.testing();
   }
 
   changeTurn = () => {
-    this.setState(prevState => ({
-      player: prevState.player === BLACK ? WHITE : BLACK,
-      turn: prevState.player === WHITE ? prevState.turn + 1 : prevState.turn
-    }));
+    if (!this.state.testingMode) {
+      this.setState(prevState => ({
+        player: prevState.player === BLACK ? WHITE : BLACK,
+        turn: prevState.player === WHITE ? prevState.turn + 1 : prevState.turn
+      }));
+    }
   };
 
   toggleTesting = () =>

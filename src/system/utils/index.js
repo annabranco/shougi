@@ -102,3 +102,5 @@ export const getFromBoard = (currentBoard, argument, currentTeam) => {
   );
   return response;
 };
+
+export const oppositeTeam = team => (team === BLACK ? WHITE : BLACK);

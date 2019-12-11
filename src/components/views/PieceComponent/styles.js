@@ -1,6 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { returnResponsiveValue } from '../../../system/utils';
 import { BLACK, WHITE } from '../../../system/constants';
+
+const onCheck = keyframes`
+  from {
+    filter: drop-shadow(0 0 0);
+  }
+
+  to {
+    filter: drop-shadow(0 0 20px red);
+  }
+`;
 
 export const PieceFigure = styled.div`
   position: relative;
@@ -104,6 +114,13 @@ export const PieceFigure = styled.div`
           transparent
           ${props.piece.team === BLACK ? 'rgb(186, 158, 145)' : 'transparent'};
       }
+    `}
+
+  ${props =>
+    ((props.piece.id === 'ōshō' && props.whiteIsInCheck) ||
+      (props.piece.id === 'gyokushō' && props.blackIsInCheck)) &&
+    css`
+      animation: ${onCheck} 1s linear infinite;
     `}
 `;
 

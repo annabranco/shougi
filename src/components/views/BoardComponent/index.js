@@ -17,7 +17,9 @@ const BoardComponent = ({
   capturePiece,
   calculateAllMovements,
   player,
-  testingMode
+  testingMode,
+  blackIsInCheck,
+  whiteIsInCheck
 }) => (
   <BoardArea>
     <Author>アッナブランコ</Author>
@@ -45,6 +47,8 @@ const BoardComponent = ({
                     allowedMoves={allowedMoves}
                     calculateAllMovements={calculateAllMovements}
                     active={player === piece.team || testingMode}
+                    blackIsInCheck={blackIsInCheck}
+                    whiteIsInCheck={whiteIsInCheck}
                   />
                 )}
               </Square>
@@ -64,7 +68,9 @@ BoardComponent.propTypes = {
   capturePiece: func.isRequired,
   calculateAllMovements: func.isRequired,
   player: string.isRequired,
-  testingMode: bool.isRequired
+  testingMode: bool.isRequired,
+  blackIsInCheck: bool.isRequired,
+  whiteIsInCheck: bool.isRequired
 };
 
 BoardComponent.defaultProps = {

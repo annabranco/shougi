@@ -3,7 +3,14 @@ import { bool, func } from 'prop-types';
 import { pieceDetailsPropType } from '../../../system/interfaces';
 import { PieceFigure, PieceName } from './styles';
 
-const PieceComponent = ({ piece, onClick, selectedPiece, active }) => (
+const PieceComponent = ({
+  piece,
+  onClick,
+  selectedPiece,
+  active,
+  blackIsInCheck,
+  whiteIsInCheck
+}) => (
   <PieceFigure
     id={piece.id}
     data-team={piece.team}
@@ -14,6 +21,8 @@ const PieceComponent = ({ piece, onClick, selectedPiece, active }) => (
     selectedPiece={selectedPiece}
     piece={piece}
     active={active}
+    blackIsInCheck={blackIsInCheck}
+    whiteIsInCheck={whiteIsInCheck}
   >
     <PieceName promoted={Boolean(piece.demotion)}>
       {window.innerWidth >= 900 ? piece.name : piece.shortName}
@@ -25,7 +34,9 @@ PieceComponent.propTypes = {
   piece: pieceDetailsPropType.isRequired,
   onClick: func.isRequired,
   selectedPiece: pieceDetailsPropType,
-  active: bool.isRequired
+  active: bool.isRequired,
+  blackIsInCheck: bool.isRequired,
+  whiteIsInCheck: bool.isRequired
 };
 
 PieceComponent.defaultProps = {

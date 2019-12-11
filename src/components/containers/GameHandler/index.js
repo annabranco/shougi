@@ -5,7 +5,8 @@ import { BOARD_SIZE } from '../../../system/setup';
 import {
   getSquareDetails,
   getSquareId,
-  getFromBoard
+  getFromBoard,
+  oppositeTeam
 } from '../../../system/utils';
 import {
   ALL_PIECES,
@@ -42,7 +43,11 @@ class GameHandler extends Component {
     capturedPieces: {
       black: [],
       white: []
-    }
+    },
+    bKingPosition: undefined,
+    wKingPosition: undefined,
+    blackIsInCheck: false,
+    whiteIsInCheck: false
   };
 
   componentDidMount() {
@@ -112,6 +117,28 @@ class GameHandler extends Component {
     }));
   };
 
+  isKingInCheck = (king, piece, coordinates) => {
+    const { bKingPosition, wKingPosition } = this.state;
+    if (wKingPosition && bKingPosition) {
+      const futureMoves = this.calculateAllMovements(
+        piece,
+        coordinates,
+        'byId'
+      );
+      if (
+        (piece.team === BLACK &&
+          king === WHITE &&
+          futureMoves.includes(wKingPosition)) ||
+        (piece.team === WHITE &&
+          king === BLACK &&
+          futureMoves.includes(bKingPosition))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   placePiece = (piece, coordinates) => {
     const { row, column } = getSquareDetails(coordinates);
 
@@ -122,7 +149,13 @@ class GameHandler extends Component {
           ...prevState.currentBoard[row],
           [column]: piece
         }
-      }
+      },
+      bKingPosition:
+        piece.romaji === 'gyokushō' ? coordinates : prevState.bKingPosition,
+      wKingPosition:
+        piece.romaji === 'ōshō' ? coordinates : prevState.wKingPosition,
+      blackIsInCheck: this.isKingInCheck(BLACK, piece, coordinates),
+      whiteIsInCheck: this.isKingInCheck(WHITE, piece, coordinates)
     }));
     this.unselectPieces();
   };
@@ -278,10 +311,16 @@ class GameHandler extends Component {
     changeTurn();
   };
 
-  calculateAllMovements = (piece, pieceCoordinates) => {
+  calculateAllMovements = (piece, pieceCoordinates, mode = 'coordinates') => {
     const { row, column } = getSquareDetails(pieceCoordinates);
     const movements = [];
     let move;
+
+    const pushMovement = newMove =>
+      mode === 'coordinates'
+        ? movements.push(newMove)
+        : movements.push(getSquareId(newMove));
+
     piece.moves.forEach(baseMovement => {
       if (
         baseMovement.x !== 0 &&
@@ -299,7 +338,7 @@ class GameHandler extends Component {
           if (this.isMovementValid(move)) {
             const canMoveIntoSquare = this.canMoveIntoSquare(move, piece);
             if (canMoveIntoSquare) {
-              movements.push(move);
+              pushMovement(move);
               if (canMoveIntoSquare === ATTACK) {
                 break;
               }
@@ -338,7 +377,7 @@ class GameHandler extends Component {
           if (this.isMovementValid(move)) {
             const canMoveIntoSquare = this.canMoveIntoSquare(move, piece);
             if (canMoveIntoSquare) {
-              movements.push(move);
+              pushMovement(move);
               if (canMoveIntoSquare === ATTACK) {
                 break;
               }
@@ -355,7 +394,7 @@ class GameHandler extends Component {
         }
         if (this.isMovementValid(move)) {
           if (this.canMoveIntoSquare(move, piece)) {
-            movements.push(move);
+            pushMovement(move);
           }
         }
       }
@@ -392,7 +431,9 @@ class GameHandler extends Component {
       currentBoard,
       selectedPiece,
       allowedMoves,
-      capturedPieces
+      capturedPieces,
+      blackIsInCheck,
+      whiteIsInCheck
     } = this.state;
     const { player, testingMode } = this.props;
 
@@ -419,6 +460,8 @@ class GameHandler extends Component {
               calculateAllMovements={this.calculateAllMovements}
               player={player}
               testingMode={testingMode}
+              blackIsInCheck={blackIsInCheck}
+              whiteIsInCheck={whiteIsInCheck}
             />
             <CapturedArea
               team={WHITE}

@@ -11,7 +11,9 @@ class PieceHandler extends PureComponent {
     capturePiece: func.isRequired,
     allowedMoves: arrayOf(string).isRequired,
     calculateAllMovements: func.isRequired,
-    active: bool.isRequired
+    active: bool.isRequired,
+    blackIsInCheck: bool.isRequired,
+    whiteIsInCheck: bool.isRequired
   };
 
   static defaultProps = {
@@ -45,13 +47,21 @@ class PieceHandler extends PureComponent {
   };
 
   render() {
-    const { selectedPiece, piece, active } = this.props;
+    const {
+      selectedPiece,
+      piece,
+      active,
+      blackIsInCheck,
+      whiteIsInCheck
+    } = this.props;
     return (
       <PieceComponent
         piece={piece}
         onClick={this.onClickPiece}
         selectedPiece={selectedPiece}
         active={active}
+        blackIsInCheck={blackIsInCheck}
+        whiteIsInCheck={whiteIsInCheck}
       />
     );
   }
