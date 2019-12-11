@@ -25,7 +25,7 @@ export const getSquareDetails = square => {
   return { row, column };
 };
 
-export const getSquareId = square => `${square.y}-${square.x}`;
+export const getSquareId = square => `${square.x}-${square.y}`;
 
 export const returnResponsiveValue = (s, m, l, xl) => {
   if (window.innerWidth <= VIEWPORT_SMALL) {

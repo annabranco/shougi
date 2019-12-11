@@ -31,6 +31,7 @@ export const Gameboard = styled.div`
     ${props => props.size},
     ${`${getGridsSize()}px`}
   );
+  grid-auto-flow: row;
   background-image: url(${Marble});
   background-size: cover;
 `;

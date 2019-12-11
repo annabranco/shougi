@@ -24,21 +24,21 @@ const BoardComponent = ({
   <BoardArea>
     <Author>アッナブランコ</Author>
     <Gameboard size={BOARD_SIZE}>
-      {Object.entries(currentBoard).map(([y, row]) =>
-        Object.keys(row)
+      {Object.entries(currentBoard).map(([x, columns]) =>
+        Object.keys(columns)
           .reverse()
-          .map(x => {
-            const piece = currentBoard[y][x];
+          .map(y => {
+            const piece = currentBoard[x][y];
             return (
               <Square
-                id={`${y}-${x}`}
-                key={`${y}-${x}`}
+                id={`${x}-${y}`}
+                key={`${x}-${y}`}
                 allowedMoves={allowedMoves}
                 onClick={onClickSquare}
                 pieceOnSquare={piece}
                 attackingPiece={selectedPiece}
               >
-                {currentBoard[y][x] && (
+                {currentBoard[x][y] && (
                   <PieceHandler
                     piece={piece}
                     selectPiece={selectPiece}
