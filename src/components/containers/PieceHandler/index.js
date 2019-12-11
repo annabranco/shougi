@@ -31,7 +31,7 @@ class PieceHandler extends PureComponent {
       active
     } = this.props;
     const pieceCoordinates = event.currentTarget.parentElement.id;
-    debugger;
+
     event.stopPropagation();
     if (
       selectedPiece &&

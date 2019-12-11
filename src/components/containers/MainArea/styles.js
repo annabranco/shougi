@@ -1,7 +1,14 @@
-import styled, { css } from 'styled-components';
+import styled, { css, createGlobalStyle } from 'styled-components';
 import { Background } from '../../../assets/images';
 import { BLACK } from '../../../system/constants';
 import { returnResponsiveValue } from '../../../system/utils';
+
+export const ClearStyles = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 export const InfoArea = styled.aside`
   z-index: 9;
@@ -11,10 +18,10 @@ export const InfoArea = styled.aside`
   ${props =>
     props.team === BLACK
       ? css`
-          bottom: ${returnResponsiveValue('20px;', '67px;', '20px;', '14px;')};
+          bottom: ${returnResponsiveValue('20px;', '60px;', '20px;', '6px;')};
         `
       : css`
-          top: ${returnResponsiveValue('20px;', '77px;', '10px;', '14px;')};
+          top: ${returnResponsiveValue('20px;', '70px;', '10px;', '6px;')};
         `}
   display: flex;
   align-items: center;
@@ -48,7 +55,7 @@ export const GameArea = styled.main`
   height: ${returnResponsiveValue(
     '100vh',
     '100vh',
-    `${window.innerHeight - 75}px`,
-    `${window.innerHeight - 30}px`
+    `${window.innerHeight - 65}px`,
+    `${window.innerHeight - 20}px`
   )};
 `;

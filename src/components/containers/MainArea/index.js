@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GameArea, InfoArea, InfoText } from './styles';
+import { GameArea, InfoArea, InfoText, ClearStyles } from './styles';
 import { WHITE, BLACK } from '../../../system/constants';
 import GameHandler from '../GameHandler/index';
 
@@ -13,7 +13,6 @@ class MainArea extends Component {
   componentDidMount() {
     window.testing = this.toggleTesting;
     window.change = this.changeTurn;
-    window.testing();
   }
 
   changeTurn = () => {
@@ -32,6 +31,7 @@ class MainArea extends Component {
     const { player, turn, testingMode } = this.state;
     return (
       <>
+        <ClearStyles />
         {(player === WHITE || testingMode) && (
           <InfoArea team={WHITE}>
             <InfoText>

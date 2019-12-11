@@ -15,7 +15,7 @@ export const CapturedPiecesWrapper = styled.section`
     props.team === BLACK ? 'column-reverse' : 'column'};
   justify-content: flex-start;
   align-items: center;
-  overflow: scroll;
+  overflow: scroll-y;
 
   ${window.innerWidth <= 700 &&
     css`

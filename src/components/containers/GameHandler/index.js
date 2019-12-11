@@ -97,10 +97,12 @@ class GameHandler extends Component {
 
     console.info(`${column}${NUMBERS[row]}${piece.shortName}`);
 
-    this.removePiece(pieceCoordinates);
-    this.placePiece(piece, coordinates);
-    this.willPromotePiece(piece, coordinates);
-    this.isKingInCheck(piece, coordinates, pieceCoordinates);
+    Promise.all([
+      this.removePiece(pieceCoordinates),
+      this.placePiece(piece, coordinates),
+      this.willPromotePiece(piece, coordinates)
+    ]).then(() => this.isKingInCheck(piece, coordinates, pieceCoordinates));
+
     changeTurn();
   };
 
@@ -122,40 +124,31 @@ class GameHandler extends Component {
     const king = oppositeTeam(piece.team);
     const { bKingPosition, wKingPosition } = this.state;
     if (wKingPosition && bKingPosition) {
+      let checkingKing;
       const futureMoves = this.calculateAllMovements(
         piece,
         coordinates,
         'byId'
       );
-      debugger;
       if (piece.team === BLACK && king === WHITE) {
+        checkingKing = [...this.state.whiteIsInCheck];
         if (futureMoves.includes(wKingPosition)) {
-          const checkingKing = [...this.state.whiteIsInCheck];
           checkingKing.push(coordinates);
-          this.setState({ whiteIsInCheck: checkingKing });
-        } else {
-          const checkingKing = this.state.whiteIsInCheck.filter(
-            checks => checks !== oldCoordinates
-          );
-          this.setState({ whiteIsInCheck: checkingKing });
         }
+        checkingKing = checkingKing.filter(checks => checks !== oldCoordinates);
+        this.setState({ whiteIsInCheck: checkingKing });
       } else if (piece.team === WHITE && king === BLACK) {
+        checkingKing = [...this.state.blackIsInCheck];
         if (futureMoves.includes(bKingPosition)) {
-          const checkingKing = [...this.state.blackIsInCheck];
           checkingKing.push(coordinates);
-          this.setState({ blackIsInCheck: checkingKing });
-        } else {
-          const checkingKing = this.state.blackIsInCheck.filter(
-            checks => checks !== oldCoordinates
-          );
-          this.setState({ blackIsInCheck: checkingKing });
         }
+        checkingKing = checkingKing.filter(checks => checks !== oldCoordinates);
+        this.setState({ blackIsInCheck: checkingKing });
       }
     }
   };
 
   placePiece = (piece, coordinates) => {
-    debugger;
     const { row, column } = getSquareDetails(coordinates);
 
     this.setState(prevState => ({
@@ -224,6 +217,7 @@ class GameHandler extends Component {
   onClickSquare = event => {
     const coordinates = event.currentTarget.id;
 
+    this.setState({ pieceCoordinates: undefined });
     const { selectedPiece } = this.state;
     if (selectedPiece && this.state.allowedMoves.includes(coordinates)) {
       if (this.isCaptured(selectedPiece)) {
@@ -326,7 +320,6 @@ class GameHandler extends Component {
   };
 
   calculateAllMovements = (piece, pieceCoordinates, mode = 'coordinates') => {
-    debugger;
     const { row, column } = getSquareDetails(pieceCoordinates);
     const movements = [];
     let move;
