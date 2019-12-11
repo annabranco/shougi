@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
-import { PropTypes } from 'prop-types';
+import { bool, func, arrayOf, string } from 'prop-types';
 import PieceComponent from '../../views/PieceComponent';
 import { pieceDetailsPropType } from '../../../system/interfaces';
 
 class PieceHandler extends PureComponent {
   static propTypes = {
     piece: pieceDetailsPropType.isRequired,
-    selectPiece: PropTypes.func.isRequired,
+    selectPiece: func.isRequired,
     selectedPiece: pieceDetailsPropType,
-    capturePiece: PropTypes.func.isRequired,
-    allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
-    calculateAllMovements: PropTypes.func.isRequired
+    capturePiece: func.isRequired,
+    allowedMoves: arrayOf(string).isRequired,
+    calculateAllMovements: func.isRequired,
+    active: bool.isRequired
   };
 
   static defaultProps = {
@@ -24,7 +25,8 @@ class PieceHandler extends PureComponent {
       capturePiece,
       selectPiece,
       piece,
-      calculateAllMovements
+      calculateAllMovements,
+      active
     } = this.props;
     const pieceCoordinates = event.currentTarget.parentElement.id;
 
@@ -36,18 +38,20 @@ class PieceHandler extends PureComponent {
       selectedPiece.team !== piece.team
     ) {
       capturePiece(pieceCoordinates, selectedPiece.team);
-    } else {
+    } else if (active) {
       const movements = calculateAllMovements(piece, pieceCoordinates);
       selectPiece(piece, pieceCoordinates, movements);
     }
   };
 
   render() {
+    const { selectedPiece, piece, active } = this.props;
     return (
       <PieceComponent
-        piece={this.props.piece}
+        piece={piece}
         onClick={this.onClickPiece}
-        selectedPiece={this.props.selectedPiece}
+        selectedPiece={selectedPiece}
+        active={active}
       />
     );
   }

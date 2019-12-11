@@ -14,7 +14,7 @@ export const PieceFigure = styled.div`
     inset 1px ${props => (props.piece.team === BLACK ? '0' : '1px')} 2px 0 white;
   background: linear-gradient(rgb(243, 223, 196), rgb(148, 135, 115));
   outline: none;
-  cursor: pointer;
+  cursor: ${props => (props.active ? 'pointer' : 'default')};
   transition: all 0.5s ease;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ export const PieceFigure = styled.div`
       '5px 15.5px 5px 15.5px',
       '5px 18.5px 5px 18.5px',
       '5px 19px 5px 19px',
-      '5px 22px 5px 22px'
+      '5px 21px 5px 21px'
     )};
     filter: drop-shadow(
       0 ${props => (props.piece.team === BLACK ? '-2px' : '2px')} 1px black
@@ -74,17 +74,20 @@ export const PieceFigure = styled.div`
             }
           `
         : css`
-            box-shadow: 2px 2px 5px 0 black, inset 1px 0 2px 0 white,
-              inset 0 0 30px 2px rgb(145, 105, 105);
-            &::before {
-              border-color: ${props.piece.team === WHITE
-                  ? 'rgb(151, 123, 114)'
-                  : 'transparent'}
-                transparent
-                ${props.piece.team === BLACK
-                  ? 'rgb(186, 158, 145)'
-                  : 'transparent'};
-            }
+            ${props.active &&
+              css`
+                box-shadow: 2px 2px 5px 0 black, inset 1px 0 2px 0 white,
+                  inset 0 0 30px 2px rgb(145, 105, 105);
+                &::before {
+                  border-color: ${props.piece.team === WHITE
+                      ? 'rgb(177, 143, 135)'
+                      : 'transparent'}
+                    transparent
+                    ${props.piece.team === BLACK
+                      ? 'rgb(186, 158, 145)'
+                      : 'transparent'};
+                }
+              `}
           `}
   }
   ${props =>
@@ -92,7 +95,15 @@ export const PieceFigure = styled.div`
     props.piece.id === props.selectedPiece.id &&
     css`
       box-shadow: 2px 2px 5px 0 black, 0 0 20px 5px rgba(185, 164, 63, 0.8),
-        inset 1px 1px 2px 0 white, inset 0 0 30px 2px rgb(145, 105, 105);
+        inset 1px -1px 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 0 30px 2px rgb(145, 105, 105);
+      &::before {
+        border-color: ${props.piece.team === WHITE
+            ? 'rgb(151, 123, 114)'
+            : 'transparent'}
+          transparent
+          ${props.piece.team === BLACK ? 'rgb(186, 158, 145)' : 'transparent'};
+      }
     `}
 `;
 

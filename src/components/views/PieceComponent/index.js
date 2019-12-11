@@ -1,9 +1,9 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import { bool, func } from 'prop-types';
 import { pieceDetailsPropType } from '../../../system/interfaces';
 import { PieceFigure, PieceName } from './styles';
 
-const PieceComponent = ({ piece, onClick, selectedPiece }) => (
+const PieceComponent = ({ piece, onClick, selectedPiece, active }) => (
   <PieceFigure
     id={piece.id}
     data-team={piece.team}
@@ -13,6 +13,7 @@ const PieceComponent = ({ piece, onClick, selectedPiece }) => (
     placeholder={window.innerWidth >= 900 ? piece.english : piece.shortEnglish}
     selectedPiece={selectedPiece}
     piece={piece}
+    active={active}
   >
     <PieceName promoted={Boolean(piece.demotion)}>
       {window.innerWidth >= 900 ? piece.name : piece.shortName}
@@ -22,8 +23,9 @@ const PieceComponent = ({ piece, onClick, selectedPiece }) => (
 
 PieceComponent.propTypes = {
   piece: pieceDetailsPropType.isRequired,
-  onClick: PropTypes.func.isRequired,
-  selectedPiece: pieceDetailsPropType
+  onClick: func.isRequired,
+  selectedPiece: pieceDetailsPropType,
+  active: bool.isRequired
 };
 
 PieceComponent.defaultProps = {

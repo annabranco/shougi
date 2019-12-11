@@ -1,7 +1,37 @@
 import styled, { css } from 'styled-components';
 import { Background } from '../../../assets/images';
+import { BLACK } from '../../../system/constants';
+import { returnResponsiveValue } from '../../../system/utils';
+
+export const InfoArea = styled.aside`
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  ${props =>
+    props.team === BLACK
+      ? css`
+          bottom: ${returnResponsiveValue('20px;', '67px;', '20px;', '14px;')};
+        `
+      : css`
+          top: ${returnResponsiveValue('20px;', '77px;', '10px;', '14px;')};
+        `}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const InfoText = styled.p`
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-size: ${returnResponsiveValue('2rem;', '1.3rem;', '2rem;', '1.5rem;')};
+  text-shadow: 0 0 2px black;
+  color: white;
+  opacity: 0.9;
+  transition: all 1s ease;
+`;
 
 export const GameArea = styled.main`
+  position: fixed;
   margin-top: -10px;
   width: 100vw;
   padding-top: ${window.innerWidth < 900 && '80px'};
@@ -14,13 +44,11 @@ export const GameArea = styled.main`
     url(${Background});
   background-size: contain;
   background-position: right top;
-
-  ${window.innerWidth < 900
-    ? css`
-        padding-top: 80px;
-        height: ${`${window.innerHeight - 80}px`};
-      `
-    : css`
-        height: 100vh;
-      `}
+  padding-top: ${returnResponsiveValue('-70px', '20px', '80px', '30px')};
+  height: ${returnResponsiveValue(
+    '100vh',
+    '100vh',
+    `${window.innerHeight - 75}px`,
+    `${window.innerHeight - 30}px`
+  )};
 `;

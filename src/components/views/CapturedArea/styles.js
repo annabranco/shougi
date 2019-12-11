@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { getBoardSize, getGridsSize } from '../../../system/utils';
-import { WHITE } from '../../../system/constants';
+import { BLACK } from '../../../system/constants';
 
 export const CapturedPiecesWrapper = styled.section`
   background: rgba(255, 255, 255, 0.3);
@@ -12,7 +12,7 @@ export const CapturedPiecesWrapper = styled.section`
   margin: 40px auto 0;
   display: flex;
   flex-direction: ${props =>
-    props.team === WHITE ? 'column-reverse' : 'column'};
+    props.team === BLACK ? 'column-reverse' : 'column'};
   justify-content: flex-start;
   align-items: center;
   overflow: scroll;
@@ -65,12 +65,12 @@ export const CapturedText = styled.p`
     css`
       transform: translate(
         0,
-        ${props => (props.team === WHITE ? '15px' : '-40px')}
+        ${props => (props.team === BLACK ? '5px' : '-30px')}
       );
     `}
   ${props =>
     window.innerWidth <= 700 &&
-    props.team === WHITE &&
+    props.team === BLACK &&
     css`
       align-self: flex-end;
     `}

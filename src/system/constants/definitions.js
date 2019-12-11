@@ -1,9 +1,11 @@
-export const WHITE = 'white';
-export const BLACK = 'black';
+const WHITE = 'white';
+const BLACK = 'black';
 
-export const ATTACK = 'attack';
-export const PASS_THROUGH = 'pass';
+const ATTACK = 'attack';
+const PASS_THROUGH = 'pass';
 
-export const IS_PAWN = 'Pawn';
-export const IS_LANCE = 'Lance';
-export const IS_KNIGHT = 'Knight';
+const IS_PAWN = 'Pawn';
+const IS_LANCE = 'Lance';
+const IS_KNIGHT = 'Knight';
+
+export { WHITE, BLACK, ATTACK, PASS_THROUGH, IS_PAWN, IS_LANCE, IS_KNIGHT };

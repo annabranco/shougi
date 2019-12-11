@@ -1,5 +1,13 @@
-export const BLACK_SQUARES = 'hasWhite';
-export const COLUMNS_WITH_PAWNS = 'hasPawn';
-export const EMPTY_SQUARES = 'isEmpty';
-export const OCCUPIED_SQUARES = 'isNotEmpty';
-export const WHITE_SQUARES = 'hasWhite';
+const BLACK_SQUARES = 'hasWhite';
+const COLUMNS_WITH_PAWNS = 'hasPawn';
+const EMPTY_SQUARES = 'isEmpty';
+const OCCUPIED_SQUARES = 'isNotEmpty';
+const WHITE_SQUARES = 'hasWhite';
+
+export {
+  BLACK_SQUARES,
+  COLUMNS_WITH_PAWNS,
+  EMPTY_SQUARES,
+  OCCUPIED_SQUARES,
+  WHITE_SQUARES
+};

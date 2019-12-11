@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
-import { GameArea } from './styles';
+import { GameArea, InfoArea, InfoText } from './styles';
+import { WHITE, BLACK } from '../../../system/constants';
+import GameHandler from '../GameHandler/index';
 
 class MainArea extends Component {
-  static propTypes = {
-    children: PropTypes.element
+  state = {
+    player: BLACK,
+    turn: 1,
+    testingMode: false
   };
 
-  static defaultProps = {
-    children: undefined
+  componentDidMount() {
+    window.test = this.toggleTesting;
+    window.change = this.changeTurn;
+  }
+
+  changeTurn = () => {
+    this.setState(prevState => ({
+      player: prevState.player === BLACK ? WHITE : BLACK,
+      turn: prevState.player === WHITE ? prevState.turn + 1 : prevState.turn
+    }));
   };
 
-  state = {};
+  toggleTesting = () =>
+    this.setState(prevState => ({ testingMode: !prevState.testingMode }));
 
   render() {
-    return <GameArea>{this.props.children}</GameArea>;
+    const { player, turn, testingMode } = this.state;
+    return (
+      <>
+        {(player === WHITE || testingMode) && (
+          <InfoArea team={WHITE}>
+            <InfoText>
+              {testingMode ? 'Testing mode' : `後手の${turn}ターン`}
+            </InfoText>
+          </InfoArea>
+        )}
+        <GameArea>
+          <GameHandler
+            player={player}
+            changeTurn={this.changeTurn}
+            testingMode={testingMode}
+          />
+        </GameArea>
+        {(player === BLACK || testingMode) && (
+          <InfoArea team={BLACK}>
+            <InfoText>
+              {testingMode ? 'Testing mode' : `先手の${turn}ターン`}
+            </InfoText>
+          </InfoArea>
+        )}
+      </>
+    );
   }
 }
 

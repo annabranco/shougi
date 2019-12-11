@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import { string, bool, func, arrayOf } from 'prop-types';
 import PieceHandler from '../../containers/PieceHandler';
 import { BOARD_SIZE } from '../../../system/setup/board';
 import {
@@ -15,7 +15,9 @@ const BoardComponent = ({
   allowedMoves,
   onClickSquare,
   capturePiece,
-  calculateAllMovements
+  calculateAllMovements,
+  player,
+  testingMode
 }) => (
   <BoardArea>
     <Author>アッナブランコ</Author>
@@ -42,6 +44,7 @@ const BoardComponent = ({
                     capturePiece={capturePiece}
                     allowedMoves={allowedMoves}
                     calculateAllMovements={calculateAllMovements}
+                    active={player === piece.team || testingMode}
                   />
                 )}
               </Square>
@@ -54,12 +57,14 @@ const BoardComponent = ({
 
 BoardComponent.propTypes = {
   currentBoard: boardPropType.isRequired,
-  selectPiece: PropTypes.func.isRequired,
+  selectPiece: func.isRequired,
   selectedPiece: pieceDetailsPropType,
-  allowedMoves: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClickSquare: PropTypes.func.isRequired,
-  capturePiece: PropTypes.func.isRequired,
-  calculateAllMovements: PropTypes.func.isRequired
+  allowedMoves: arrayOf(string).isRequired,
+  onClickSquare: func.isRequired,
+  capturePiece: func.isRequired,
+  calculateAllMovements: func.isRequired,
+  player: string.isRequired,
+  testingMode: bool.isRequired
 };
 
 BoardComponent.defaultProps = {

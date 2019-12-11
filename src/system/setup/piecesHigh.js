@@ -5,19 +5,19 @@ import { WHITE, BLACK } from '../constants';
  * **** WHITE TEAM ****
  */
 // --- Higher Ranks
-export const W_OUSHOU = {
+const W_OUSHOU = {
   ...OUSHOU,
   id: 'ōshō',
   team: WHITE,
   initialSetup: '1-5'
 };
-export const W_KINSHOU_L = {
+const W_KINSHOU_L = {
   ...KINSHOU,
   id: 'white_kinshō_L',
   team: WHITE,
   initialSetup: '1-4'
 };
-export const W_KINSHOU_R = {
+const W_KINSHOU_R = {
   ...KINSHOU,
   id: 'white_kinshō_R',
   team: WHITE,
@@ -28,21 +28,30 @@ export const W_KINSHOU_R = {
  * **** BLACK TEAM ****
  */
 // --- Higher Ranks
-export const B_GYOKUSHOU = {
+const B_GYOKUSHOU = {
   ...GYOKUSHOU,
   id: 'gyokushō',
   team: BLACK,
   initialSetup: '9-5'
 };
-export const B_KINSHOU_L = {
+const B_KINSHOU_L = {
   ...KINSHOU,
   id: 'black_kinshō_L',
   team: BLACK,
   initialSetup: '9-6'
 };
-export const B_KINSHOU_R = {
+const B_KINSHOU_R = {
   ...KINSHOU,
   id: 'black_kinshō_R',
   team: BLACK,
   initialSetup: '9-4'
+};
+
+export {
+  W_OUSHOU,
+  W_KINSHOU_L,
+  W_KINSHOU_R,
+  B_GYOKUSHOU,
+  B_KINSHOU_L,
+  B_KINSHOU_R
 };

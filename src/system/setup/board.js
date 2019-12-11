@@ -1,4 +1,6 @@
-export const BOARD_SIZE = 9;
-export const BOARD_BORDERS = 30;
-export const MAX_GRID_SIZE = 65;
-export const MIN_GRID_SIZE = 40;
+const BOARD_SIZE = 9;
+const BOARD_BORDERS = 30;
+const MAX_GRID_SIZE = 65;
+const MIN_GRID_SIZE = 40;
+
+export { BOARD_SIZE, BOARD_BORDERS, MAX_GRID_SIZE, MIN_GRID_SIZE };

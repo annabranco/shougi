@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import { string, arrayOf, func, bool } from 'prop-types';
 import { pieceDetailsPropType } from '../../../system/interfaces';
 import {
   CapturedPiecesWrapper,
@@ -9,7 +9,13 @@ import {
 } from './styles';
 import PieceComponent from '../PieceComponent';
 
-const CapturedArea = ({ team, capturedPieces, selectedPiece, onClick }) => (
+const CapturedArea = ({
+  team,
+  capturedPieces,
+  selectedPiece,
+  onClick,
+  active
+}) => (
   <CapturedPiecesWrapper team={team}>
     <CapturedText team={team}>持ち駒</CapturedText>
     <CapturedGrid>
@@ -17,8 +23,9 @@ const CapturedArea = ({ team, capturedPieces, selectedPiece, onClick }) => (
         <CapturedSquare key={piece.id}>
           <PieceComponent
             piece={piece}
-            onClick={onClick}
+            onClick={active ? onClick : () => null}
             selectedPiece={selectedPiece}
+            active={active}
           />
         </CapturedSquare>
       ))}
@@ -27,10 +34,11 @@ const CapturedArea = ({ team, capturedPieces, selectedPiece, onClick }) => (
 );
 
 CapturedArea.propTypes = {
-  team: PropTypes.string,
-  capturedPieces: PropTypes.arrayOf(pieceDetailsPropType).isRequired,
+  team: string,
+  capturedPieces: arrayOf(pieceDetailsPropType).isRequired,
   selectedPiece: pieceDetailsPropType,
-  onClick: PropTypes.func.isRequired
+  onClick: func.isRequired,
+  active: bool.isRequired
 };
 
 CapturedArea.defaultProps = {

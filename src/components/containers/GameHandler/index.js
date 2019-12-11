@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { oneOf, func, bool } from 'prop-types';
 import BoardComponent from '../../views/BoardComponent';
 import { BOARD_SIZE } from '../../../system/setup';
 import {
@@ -27,6 +28,12 @@ import {
 } from '../../../system/constants';
 
 class GameHandler extends Component {
+  static propTypes = {
+    player: oneOf([BLACK, WHITE]).isRequired,
+    changeTurn: func.isRequired,
+    testingMode: bool.isRequired
+  };
+
   state = {
     currentBoard: undefined,
     selectedPiece: undefined,
@@ -79,6 +86,8 @@ class GameHandler extends Component {
 
   movePiece = (coordinates, piece = this.state.selectedPiece) => {
     const { pieceCoordinates } = this.state;
+    const { changeTurn } = this.props;
+
     const { row, column } = getSquareDetails(coordinates);
 
     console.info(`${column}${NUMBERS[row]}${piece.shortName}`);
@@ -86,6 +95,7 @@ class GameHandler extends Component {
     this.removePiece(pieceCoordinates);
     this.placePiece(piece, coordinates);
     this.willPromotePiece(piece, coordinates);
+    changeTurn();
   };
 
   removePiece = (coordinates = this.state.pieceCoordinates) => {
@@ -117,37 +127,10 @@ class GameHandler extends Component {
     this.unselectPieces();
   };
 
-  updatePromotion = (capturedPiece, mirrorPiece) => {
-    if (capturedPiece.promotion) {
-      const updatedPromotion = PROMOTIONS[mirrorPiece.id];
-      const { id } = capturedPiece.promotion;
-
-      if (id.includes('captured_')) {
-        updatedPromotion.id = id.slice(9);
-      } else {
-        updatedPromotion.id = `captured_${id}`;
-      }
-      return { promotion: updatedPromotion };
-    }
-    if (capturedPiece.demotion) {
-      const updatedDemotion = DEMOTIONS[mirrorPiece.id];
-      const { id } = capturedPiece.demotion;
-
-      if (id.includes('captured_')) {
-        updatedDemotion.id = id.slice(9);
-      } else {
-        updatedDemotion.id = `captured_${id}`;
-      }
-      return { demotion: updatedDemotion };
-    }
-    return null;
-  };
-
   capturePiece = (coordinates, capturer) => {
     const { row, column } = getSquareDetails(coordinates);
     let capturedPiece = this.state.currentBoard[row][column];
     const capturedTeam = capturedPiece.id.includes(WHITE) ? WHITE : BLACK;
-
     if (capturedPiece.demotion) {
       capturedPiece.demotion.id = capturedPiece.id.includes('captured_')
         ? `captured_${capturedPiece.demotion.id}`
@@ -276,6 +259,8 @@ class GameHandler extends Component {
   };
 
   dropPiece = (coordinates, piece = this.state.selectedPiece) => {
+    const { changeTurn } = this.props;
+
     const updatedCapturedPieces = this.state.capturedPieces[piece.team].filter(
       captured => captured.id !== piece.id
     );
@@ -290,6 +275,7 @@ class GameHandler extends Component {
       }
     }));
     this.placePiece(piece, coordinates);
+    changeTurn();
   };
 
   calculateAllMovements = (piece, pieceCoordinates) => {
@@ -401,10 +387,6 @@ class GameHandler extends Component {
     return PASS_THROUGH;
   };
 
-  getColumnsWithoutPawns = () => {
-    getFromBoard();
-  };
-
   render() {
     const {
       currentBoard,
@@ -412,6 +394,8 @@ class GameHandler extends Component {
       allowedMoves,
       capturedPieces
     } = this.state;
+    const { player, testingMode } = this.props;
+
     window.board = currentBoard;
 
     return (
@@ -419,10 +403,11 @@ class GameHandler extends Component {
         {currentBoard ? (
           <PlayingArea>
             <CapturedArea
-              team={WHITE}
-              capturedPieces={capturedPieces.black}
+              team={BLACK}
+              capturedPieces={capturedPieces[BLACK]}
               selectedPiece={selectedPiece}
               onClick={this.onClickCaptured}
+              active={player === BLACK || testingMode}
             />
             <BoardComponent
               currentBoard={currentBoard}
@@ -432,12 +417,15 @@ class GameHandler extends Component {
               onClickSquare={this.onClickSquare}
               capturePiece={this.capturePiece}
               calculateAllMovements={this.calculateAllMovements}
+              player={player}
+              testingMode={testingMode}
             />
             <CapturedArea
-              team={BLACK}
-              capturedPieces={capturedPieces.white}
+              team={WHITE}
+              capturedPieces={capturedPieces[WHITE]}
               selectedPiece={selectedPiece}
               onClick={this.onClickCaptured}
+              active={player === WHITE || testingMode}
             />
           </PlayingArea>
         ) : (

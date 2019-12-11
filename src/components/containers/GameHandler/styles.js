@@ -10,7 +10,6 @@ export const PlayingArea = styled.div`
 
   ${window.innerWidth <= 700 &&
     css`
-      margin: -70px 0 0 0;
       flex-direction: column;
       align-items: center;
       justify-content: center;
