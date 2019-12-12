@@ -1,7 +1,7 @@
 # 将棋 Shōgi game by Anna Branco
 ## v0.1.0
 
-<img src="https://raw.githubusercontent.com/annabranco/shougi/master/src/assets/images/logo.png" alt="" width="420px">
+<img src="https://raw.githubusercontent.com/annabranco/shougi/master/src/assets/images/logo.png" alt="" width="500px">
 
 This is the experimental development of a 将棋, the Japanese chess game.
 
