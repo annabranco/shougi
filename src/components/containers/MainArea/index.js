@@ -13,7 +13,6 @@ class MainArea extends Component {
   componentDidMount() {
     window.testing = this.toggleTesting;
     window.change = this.changeTurn;
-    window.testing();
   }
 
   changeTurn = () => {
