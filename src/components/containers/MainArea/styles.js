@@ -18,10 +18,10 @@ export const InfoArea = styled.aside`
   ${props =>
     props.team === BLACK
       ? css`
-          bottom: ${returnResponsiveValue('20px;', '60px;', '20px;', '6px;')};
+          bottom: ${returnResponsiveValue('20px;', '60px;', '20px;', '24px;')};
         `
       : css`
-          top: ${returnResponsiveValue('20px;', '70px;', '10px;', '6px;')};
+          top: ${returnResponsiveValue('20px;', '70px;', '10px;', '4px;')};
         `}
   display: flex;
   align-items: center;

@@ -25,7 +25,8 @@ const BoardComponent = ({
     <Author>アッナブランコ</Author>
     <Gameboard size={BOARD_SIZE}>
       {Object.entries(currentBoard).map(([x, columns]) =>
-        Object.keys(columns)
+        Object.keys
+          .a(columns)
           .reverse()
           .map(y => {
             const piece = currentBoard[x][y];

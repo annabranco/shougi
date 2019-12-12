@@ -35,26 +35,20 @@ export const pieceDetailsPropType = shape({
   })
 });
 
-// https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
+// TODO: Review it
 
-export const squareType = (
+export const squareType = ({
   propValue,
   key,
   componentName,
   location,
   propFullName
-) => {
-  console.log(
+}) =>
+  new Error(
     `Invalid prop \`${propFullName}\` supplied to` +
       ` \`${componentName}\`. Validation failed.` +
       `propValue ${propValue}, key ${key}, location${location}`
   );
-  return new Error(
-    `Invalid prop \`${propFullName}\` supplied to` +
-      ` \`${componentName}\`. Validation failed.` +
-      `propValue ${propValue}, key ${key}, location${location}`
-  );
-};
 
 export const boardPropType = shape({
   1: squareType.isRequired
